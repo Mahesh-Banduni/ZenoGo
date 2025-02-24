@@ -2,7 +2,7 @@ import { lazy, StrictMode, Suspense } from "react";
 import { createRoot } from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { Provider } from "react-redux";
-// import store from "./store/Store";
+import store from "./store/Store";
 import App from "./App";
 import "./index.css";
 
@@ -14,9 +14,9 @@ const Loader = () => (
 );
 
 // Lazy load components
-// const Home = lazy(() => import("./pages/Home"));
-// const Products = lazy(() => import("./pages/Products"));
-// const ProductDetails = lazy(() => import("./pages/ProductDetailPage"));
+const RideSelection = lazy(() => import("./pages/RideSelection"));
+const BookRide = lazy(() => import("./pages/BookRide"));
+//const OlaMap = lazy(() => import("./pages/OlaMap"));
 // const Cart = lazy(() => import("./pages/Cart"));
 // const Checkout = lazy(() => import("./pages/Checkout"));
 // const AdminDashboard= lazy(() => import('./pages/AdminDashboard'));
@@ -36,90 +36,90 @@ const routes = createBrowserRouter([
         path: "/",
         element: (
           <Suspense fallback={<Loader />}>
-            <Home />
+            <RideSelection />
           </Suspense>
         ),
       },
       {
-        path: "/products",
+        path: "/book-ride",
         element: (
           <Suspense fallback={<Loader />}>
-            <Products />
+            <BookRide />
           </Suspense>
         ),
       },
-      {
-        path: "/product/:id",
-        element: (
-          <Suspense fallback={<Loader />}>
-            <ProductDetails />
-          </Suspense>
-        ),
-      },
-      {
-        path: "/cart",
-        element: (
-          <Suspense fallback={<Loader />}>
-            <Cart />
-          </Suspense>
-        ),
-      },
-      {
-        path: "/checkout",
-        element: (
-          <Suspense fallback={<Loader />}>
-            <Checkout />
-          </Suspense>
-        ),
-      },
-      {
-        path: "/profile",
-        element: (
-          <Suspense fallback={<Loader />}>
-            <Profile />
-          </Suspense>
-        ),
-      },
-      {
-        path: "/login",
-        element: (
-          <Suspense fallback={<Loader />}>
-            <Login />
-          </Suspense>
-        ),
-      },
-      {
-        path: "/register",
-        element: (
-          <Suspense fallback={<Loader />}>
-            <Register />
-          </Suspense>
-        ),
-      },
-      {
-        path: "/contact",
-        element: (
-          <Suspense fallback={<Loader />}>
-            <ContactUs />
-          </Suspense>
-        ),
-      },
-      {
-        path: "/admin-dashboard",
-        element: (
-          <Suspense fallback={<Loader />}>
-            <AdminDashboard />
-          </Suspense>
-        ),
-      },
-      {
-        path: "/about",
-        element: (
-          <Suspense fallback={<Loader />}>
-            <AboutUs />
-          </Suspense>
-        ),
-      },
+      // {
+      //   path: "/olamap",
+      //   element: (
+      //     <Suspense fallback={<Loader />}>
+      //       <OlaMap />
+      //     </Suspense>
+      //   ),
+      // },
+      // {
+      //   path: "/cart",
+      //   element: (
+      //     <Suspense fallback={<Loader />}>
+      //       <Cart />
+      //     </Suspense>
+      //   ),
+      // },
+      // {
+      //   path: "/checkout",
+      //   element: (
+      //     <Suspense fallback={<Loader />}>
+      //       <Checkout />
+      //     </Suspense>
+      //   ),
+      // },
+      // {
+      //   path: "/profile",
+      //   element: (
+      //     <Suspense fallback={<Loader />}>
+      //       <Profile />
+      //     </Suspense>
+      //   ),
+      // },
+      // {
+      //   path: "/login",
+      //   element: (
+      //     <Suspense fallback={<Loader />}>
+      //       <Login />
+      //     </Suspense>
+      //   ),
+      // },
+      // {
+      //   path: "/register",
+      //   element: (
+      //     <Suspense fallback={<Loader />}>
+      //       <Register />
+      //     </Suspense>
+      //   ),
+      // },
+      // {
+      //   path: "/contact",
+      //   element: (
+      //     <Suspense fallback={<Loader />}>
+      //       <ContactUs />
+      //     </Suspense>
+      //   ),
+      // },
+      // {
+      //   path: "/admin-dashboard",
+      //   element: (
+      //     <Suspense fallback={<Loader />}>
+      //       <AdminDashboard />
+      //     </Suspense>
+      //   ),
+      // },
+      // {
+      //   path: "/about",
+      //   element: (
+      //     <Suspense fallback={<Loader />}>
+      //       <AboutUs />
+      //     </Suspense>
+      //   ),
+      // },
     ],
   },
 ]);

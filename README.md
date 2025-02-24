@@ -1,1 +1,2 @@
-# ZenoGo- A ride hailing platform built using MERN Stack technology
+# ZenoGo
+- A ride hailing platform built using MERN Stack technology

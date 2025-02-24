@@ -1,4 +1,26 @@
 @import "tailwindcss";
+
+/* Add these to your CSS file */
+
+@keyframes slideUp {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.animate-slideUp {
+  animation: slideUp 0.3s ease-out forwards;
+}
+
+/* For better touch interactions on mobile */
+.touch-action-manipulation {
+  touch-action: manipulation;
+}
 /* :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
