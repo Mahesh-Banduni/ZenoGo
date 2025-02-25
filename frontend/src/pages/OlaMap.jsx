@@ -5,7 +5,7 @@ const OlaMap = () => {
     useEffect(() => {
         // Initialize Ola Maps with API Key
         const olaMaps = new OlaMaps({
-            apiKey: "WONLJdKUeBe70Chbm9Dgr7wPNDlaXbIR6izkx25d", // Replace with your API key
+            apiKey: `${import.meta.env.VITE_OLAMAPS_API_KEY}`, // Replace with your API key
         });
 
         // Render the map
