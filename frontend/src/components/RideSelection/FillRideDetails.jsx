@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import RideOptions from './RideOptions';
 import useRideSelection from '../../hooks/useRideSelection';
-import { X, Compass, CompassIcon, Cross, CrossIcon, Locate, LucideCrosshair, MapIcon, MapPin, MapPinHouse, Navigation, Navigation2, Navigation2Icon, Navigation2Off, Navigation2OffIcon, NavigationIcon, NavigationOff, NavigationOffIcon, Calendar, ClockAlertIcon, Clock10 } from 'lucide-react';
+import { X, Compass, CompassIcon, Cross, CrossIcon, Locate, LucideCrosshair, MapIcon, MapPin, MapPinHouse, Navigation, Navigation2, Navigation2Icon, Navigation2Off, Navigation2OffIcon, NavigationIcon, NavigationOff, NavigationOffIcon, Calendar, ClockAlertIcon, Clock10, LocateFixed } from 'lucide-react';
 
 const FillRideDetails = () => {
   const navigate = useNavigate();
@@ -20,7 +20,7 @@ const FillRideDetails = () => {
         <h1 className='text-xl text-gray-800 font-bold mb-6'>Add Ride Details</h1>
         </center>
           <div className="mb-4 mt-2 relative flex items-center">   
-          <MapPin className="absolute left-3 text-black" size={20} />
+          <MapPin className="absolute left-3 text-black " size={20} />
               <input
                 type="text"
                 name="pickup"
@@ -32,7 +32,7 @@ const FillRideDetails = () => {
               />
                 {/* Show Navigation Icon when input is empty or focused */}
                 {formData.pickup === "" && (
-                  <Navigation className="absolute right-3 text-black fill-gray-800" size={20} />
+                  <Locate className="absolute right-3 text-black " size={20} />
                 )}
 
                 {/* Show Cross Icon when input has text */}
@@ -45,7 +45,7 @@ const FillRideDetails = () => {
                 )}
             </div>
           <div className="mb-4 relative flex items-center">   
-          <Locate className="absolute left-3 text-black" size={20} />
+          <Navigation className="absolute left-3 text-black fill-gray-800" size={20} />
               <input
                 type="text"
                 name="dropoff"

@@ -198,12 +198,20 @@ const Header = () => {
                 Reserve a Ride
               </NavLink>
               {token && (
+                <>
+                <NavLink to="/profile" className={({isActive}) => 
+                  `py-2 px-2 rounded-md ${isActive ? 'bg-emerald-50 text-emerald-700 font-semibold' : 'text-gray-700'} hover:bg-emerald-50 hover:text-emerald-700 transition-colors duration-200`
+                }
+                onClick={handleNavLinkClick}
+                >Manage Account
+                </NavLink>
                 <button 
                   onClick={handleLogout} 
-                  className="py-2 px-2 rounded-md text-left text-gray-700 hover:bg-red-50 hover:text-red-600 transition-colors duration-200 mt-4"
+                  className="py-2 px-2 rounded-md text-left text-gray-700 hover:bg-red-50 hover:text-red-600 transition-colors duration-200"
                 >
                   Logout
                 </button>
+                </>
               )}
             </div>
             
