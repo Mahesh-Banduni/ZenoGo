@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import RideOptions from '../components/RideOptions';
+import RideOptions from '../components/RideSelection/RideOptions';
 import OlaMap from "./OlaMap";
 
 const Book =()=>{
