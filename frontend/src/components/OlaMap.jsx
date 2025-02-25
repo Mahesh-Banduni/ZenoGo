@@ -115,7 +115,7 @@ const OlaMap = () => {
     }, []);
 
     // Updated to full height and width
-    return <div id="map" className="w-full lg:w-3/5 md:w-3/4 h-screen" />;
+    return <div id="map" className="w-full lg:w-3/5 md:w-2/4 h-screen" />;
 };
 
 export default OlaMap;

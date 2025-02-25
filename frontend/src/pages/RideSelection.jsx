@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import MobileRideSelection from '../components/RideSelection/MobileRideSelection';
 import FillRideDetails from '../components/RideSelection/FillRideDetails';
-import OlaMap from './OlaMap';
+import OlaMap from '../components/OlaMap';
 
 const RideSelection = () => {
   const [isMobile, setIsMobile] = useState(false);

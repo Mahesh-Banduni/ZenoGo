@@ -14,6 +14,7 @@ const Loader = () => (
 );
 
 // Lazy load components
+const Home= lazy(()=> import("./pages/Home"))
 const RideSelection = lazy(() => import("./pages/RideSelection"));
 const BookRide = lazy(() => import("./pages/BookRide"));
 //const OlaMap = lazy(() => import("./pages/OlaMap"));
@@ -36,7 +37,7 @@ const routes = createBrowserRouter([
         path: "/",
         element: (
           <Suspense fallback={<Loader />}>
-            <RideSelection />
+            <Home />
           </Suspense>
         ),
       },
@@ -48,14 +49,14 @@ const routes = createBrowserRouter([
           </Suspense>
         ),
       },
-      // {
-      //   path: "/olamap",
-      //   element: (
-      //     <Suspense fallback={<Loader />}>
-      //       <OlaMap />
-      //     </Suspense>
-      //   ),
-      // },
+      {
+        path: "/select-ride",
+        element: (
+          <Suspense fallback={<Loader />}>
+            <RideSelection />
+          </Suspense>
+        ),
+      },
       // {
       //   path: "/cart",
       //   element: (

@@ -1,11 +1,11 @@
 import {scooter, mini, sedan, SUV} from "../../utils/icons"
 
-const RideOptions = ({ onSelect, selectedOption, prices }) => {
+const RideOptions = ({ onSelect, selectedOption }) => {
     const options = [
       { id: 'Bike',image: scooter, name: 'Bike', description: 'Zip through traffic at affordable fares' },
-      { id: 'mini',image:mini, name: 'Mini', description: 'Comfy hatchbacks at pocket-friendly fares' },
-      { id: 'sedan',image:sedan, name: 'Sedan', description: 'Sedans with free wifi and top drivers' },
-      { id: 'suv',image:SUV, name: 'SUV', description: 'SUVs with free wifi and top drivers' }
+      { id: 'Mini',image:mini, name: 'Mini', description: 'Comfy hatchbacks at pocket-friendly fares' },
+      { id: 'Sedan',image:sedan, name: 'Sedan', description: 'Sedans with free wifi and top drivers' },
+      { id: 'SUV',image:SUV, name: 'SUV', description: 'SUVs with free wifi and top drivers' }
     ];
   
     return (

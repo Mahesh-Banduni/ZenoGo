@@ -110,7 +110,7 @@ const Header = () => {
         
         {/* Desktop Navigation */}
         <div className="hidden md:flex space-x-3 lg:space-x-5 font-medium text-sm lg:text-base">
-          <NavLink to="/book-ride" className={({isActive}) => 
+          <NavLink to="/select-ride" className={({isActive}) => 
             `px-2 py-1 ${isActive ? 'text-emerald-700 font-semibold' : 'text-gray-700'} hover:text-black hover:underline rounded-md transition-colors duration-200`
           }>
             Book a Ride
@@ -180,7 +180,7 @@ const Header = () => {
             </div>
             <div className="flex flex-col space-y-3">
               <NavLink 
-                to="/book-ride" 
+                to="/select-ride" 
                 className={({isActive}) => 
                   `py-2 px-2 rounded-md ${isActive ? 'bg-emerald-50 text-emerald-700 font-semibold' : 'text-gray-700'} hover:bg-emerald-50 hover:text-emerald-700 transition-colors duration-200`
                 }

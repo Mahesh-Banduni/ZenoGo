@@ -1,8 +1,8 @@
 import Home from "./Home";
-import Booking from "./Booking";
-import OlaMap from "./OlaMap";
+import BookRide from "./BookRide";
+import RideSelection from "./RideSelection";
 
 
 export{
-    Home, Booking, OlaMap
+    Home, BookRide, RideSelection
 };
