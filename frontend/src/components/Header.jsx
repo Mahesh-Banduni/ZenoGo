@@ -88,14 +88,14 @@ const Header = () => {
   };
 
   return (
-    <nav className={`sticky top-0 z-50 w-full transition-all ${isScrolled ? 'bg-white shadow-lg' : 'bg-white'}`}>
+    <nav className={`sticky top-0 z-50 w-full transition-all ${isScrolled ? 'bg-amber-100 shadow-lg' : 'bg-amber-100'}`}>
       <div className="max-w-7xl mx-auto px-2 sm:px-4 lg:px-6 py-2 sm:py-3 flex justify-between items-center">
         <div className="flex items-center">
           {/* Mobile Menu Button */}
           <button 
             ref={menuButtonRef} 
             onClick={() => setIsMenuOpen(!isMenuOpen)} 
-            className="md:hidden p-2 focus:outline-none hover:bg-gray-100 rounded-md transition-colors duration-200"
+            className="md:hidden p-2 focus:outline-none hover:bg-amber-50 rounded-md transition-colors duration-200"
             aria-label={isMenuOpen ? "Close menu" : "Open menu"}
           >
             {isMenuOpen ? <X size={20} /> : <Menu size={20} />}
@@ -111,12 +111,12 @@ const Header = () => {
         {/* Desktop Navigation */}
         <div className="hidden md:flex space-x-3 lg:space-x-5 font-medium text-sm lg:text-base">
           <NavLink to="/select-ride" className={({isActive}) => 
-            `px-2 py-1 ${isActive ? 'text-emerald-700 font-semibold' : 'text-gray-700'} hover:text-black hover:underline rounded-md transition-colors duration-200`
+            `px-2 py-1 ${isActive ? 'text-black underline font-semibold' : 'text-gray-800'} hover:text-black hover:underline rounded-md transition-colors duration-200`
           }>
             Book a Ride
           </NavLink>
           <NavLink to="/profile" className={({isActive}) => 
-            `px-2 py-1 ${isActive ? 'text-emerald-700 font-semibold' : 'text-gray-700'} hover:text-black hover:underline rounded-md transition-colors duration-200`
+            `px-2 py-1 ${isActive ? 'text-black underline font-semibold' : 'text-gray-800'} hover:text-black hover:underline rounded-md transition-colors duration-200`
           }>
             Reserve a Ride
           </NavLink>
@@ -126,7 +126,7 @@ const Header = () => {
         <div className="flex items-center gap-2 sm:gap-3 md:gap-4">
           {!token ? (
             <>
-              <NavLink to="/login" className="text-xs sm:text-sm px-2 sm:px-3 md:px-4 py-1.5 sm:py-2 border border-orange-500 text-orange-500 rounded-lg whitespace-nowrap hover:bg-orange-50 hover:border-orange-600 hover:text-orange-600 transition-all duration-200 active:bg-orange-100">Login</NavLink>
+              <NavLink to="/login" className="text-xs sm:text-sm px-2 sm:px-3 md:px-4 py-1.5 sm:py-2 border bg-amber-50 text-orange-600 font-semibold rounded-lg whitespace-nowrap hover:font-bold transition-all duration-200 transform hover:-translate-y-0.5 active:bg-orange-100">Login</NavLink>
               <NavLink to="/register" className="text-xs sm:text-sm px-2 sm:px-3 md:px-4 py-1.5 sm:py-2 bg-orange-500 text-white rounded-lg whitespace-nowrap hover:bg-orange-600 transition-all duration-200 active:bg-orange-700 transform hover:-translate-y-0.5">Sign Up</NavLink>
             </>
           ) : (
@@ -134,10 +134,11 @@ const Header = () => {
               <button 
                 ref={profileButtonRef} 
                 onClick={() => setIsProfileDropdownOpen(!isProfileDropdownOpen)} 
-                className="p-1.5 sm:p-2 focus:outline-none hover:bg-gray-100 rounded-full transition-colors duration-200"
+                className="p-1.5 sm:p-2 focus:outline-none bg-amber-50 flex gap-2 items-center transition-colors duration-200"
                 aria-label="User profile"
               >
                 <CgProfile size={20} className="sm:w-5 sm:h-5 md:w-6 md:h-6" />
+                <p>Hi, Mahesh</p>
               </button>
               <AnimatePresence>
                 {isProfileDropdownOpen && (
@@ -148,8 +149,8 @@ const Header = () => {
                     transition={{ duration: 0.2 }}
                     className="absolute right-0 mt-2 w-36 sm:w-44 md:w-48 bg-white rounded-lg shadow-xl border border-gray-100 py-1 z-50"
                   >
-                    <NavLink to="/profile" className="block px-3 py-2 text-sm text-gray-700 hover:bg-emerald-50 hover:text-emerald-700 transition-colors duration-200">Manage Account</NavLink>
-                    <button onClick={handleLogout} className="block w-full px-3 py-2 text-left text-sm text-gray-700 hover:bg-red-50 hover:text-red-600 transition-colors duration-200">Logout</button>
+                    <NavLink to="/profile" className="block px-3 py-2 text-sm text-gray-800 hover:bg-amber-100 hover:text-black hover:font-normal transition-colors duration-200">Manage Account</NavLink>
+                    <button onClick={handleLogout} className="block w-full px-3 py-2 text-left text-sm text-gray-800 hover:bg-red-50 hover:text-red-600 transition-colors duration-200">Logout</button>
                   </motion.div>
                 )}
               </AnimatePresence>
@@ -182,7 +183,7 @@ const Header = () => {
               <NavLink 
                 to="/select-ride" 
                 className={({isActive}) => 
-                  `py-2 px-2 rounded-md ${isActive ? 'bg-emerald-50 text-emerald-700 font-semibold' : 'text-gray-700'} hover:bg-emerald-50 hover:text-emerald-700 transition-colors duration-200`
+                  `py-2 px-2 rounded-md ${isActive ? 'bg-amber-500 text-white font-bold hover:bg-amber-500 hover:text-white hover:font-bold' : 'text-gray-800'} hover:bg-amber-100 hover:text-black transition-colors duration-200`
                 }
                 onClick={handleNavLinkClick}
               >
@@ -191,7 +192,7 @@ const Header = () => {
               <NavLink 
                 to="/profile" 
                 className={({isActive}) => 
-                  `py-2 px-2 rounded-md ${isActive ? 'bg-emerald-50 text-emerald-700 font-semibold' : 'text-gray-700'} hover:bg-emerald-50 hover:text-emerald-700 transition-colors duration-200`
+                  `py-2 px-2 rounded-md ${isActive ? 'bg-amber-500 text-white font-bold hover:bg-amber-500 hover:text-white hover:font-bold' : 'text-gray-800'} hover:bg-amber-100 hover:text-black transition-colors duration-200`
                 }
                 onClick={handleNavLinkClick}
               >
@@ -200,14 +201,14 @@ const Header = () => {
               {token && (
                 <>
                 <NavLink to="/profile" className={({isActive}) => 
-                  `py-2 px-2 rounded-md ${isActive ? 'bg-emerald-50 text-emerald-700 font-semibold' : 'text-gray-700'} hover:bg-emerald-50 hover:text-emerald-700 transition-colors duration-200`
+                  `py-2 px-2 rounded-md ${isActive ? 'bg-amber-500 text-white font-bold hover:bg-amber-500 hover:text-white hover:font-bold' : 'text-gray-800'} hover:bg-amber-100 hover:text-black transition-colors duration-200`
                 }
                 onClick={handleNavLinkClick}
                 >Manage Account
                 </NavLink>
                 <button 
                   onClick={handleLogout} 
-                  className="py-2 px-2 rounded-md text-left text-gray-700 hover:bg-red-50 hover:text-red-600 transition-colors duration-200"
+                  className="py-2 px-2 rounded-md text-left text-gray-800 hover:bg-red-50 hover:text-red-600 transition-colors duration-200"
                 >
                   Logout
                 </button>
@@ -221,7 +222,7 @@ const Header = () => {
                 <NavLink 
                   to="/login" 
                   onClick={handleNavLinkClick}
-                  className="py-2 px-4 border border-orange-500 text-orange-500 rounded-lg text-center hover:bg-orange-50 hover:border-orange-600 hover:text-orange-600 transition-all duration-200"
+                  className="py-2 px-4 border border-orange-500 text-orange-500 rounded-lg text-center hover:bg-amber-50 hover:border-orange-600 hover:text-orange-600 transition-all duration-200"
                 >
                   Login
                 </NavLink>

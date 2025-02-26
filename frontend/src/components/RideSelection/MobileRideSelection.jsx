@@ -45,8 +45,14 @@ const MobileRideSelection = () => {
       <div className="absolute bottom-0 left-0 right-0 pb-10 mb-5">
         <form className="bg-white rounded-t-xl shadow-lg " onSubmit={handleSubmit}>
           {/* Drag handle */}
-          <div className="flex justify-center py-2 cursor-pointer" onClick={toggleExpanded}>
-            {isExpanded ? <ChevronDown className="text-gray-500" size={24} /> : <ChevronUp className="text-gray-500" size={24} />}
+          <div className="flex justify-center py-2 cursor-pointer gap-2" onClick={toggleExpanded}>
+          <center>
+        <h1 className='text-xl text-gray-800 font-bold mb-2 mt-2'>Add Ride Details</h1>
+        </center>
+            {isExpanded ? 
+              <ChevronDown className="text-gray-500 mb-2 mt-2" size={24} /> : 
+              <ChevronUp className="text-gray-500 mb-2 mt-2" size={24} />
+            }
           </div>
 
           {/* Pickup Location */}
@@ -60,7 +66,7 @@ const MobileRideSelection = () => {
                   value={formData.pickup}
                   onChange={(e) => { handleChange(e); setDropdownType('pickup'); }}
                   onClick={toggleExpanded}
-                  className="w-full p-2 pl-10 pr-8 border-2 rounded-lg bg-gray-50"
+                  className="w-full p-2 pl-10 pr-8 rounded-lg bg-neutral-200 border border-gray-300"
                   placeholder="Pickup Location..."
                   required
                 />
@@ -87,7 +93,7 @@ const MobileRideSelection = () => {
                   name="dropoff"
                   value={formData.dropoff}
                   onChange={(e) => { handleChange(e); setDropdownType('dropoff'); }}
-                  className="w-full p-2 pl-10 border-2 rounded-lg pr-8 bg-gray-50"
+                  className="w-full p-2 pl-10 rounded-lg pr-8 bg-neutral-200 border border-gray-300"
                   placeholder="Dropoff Location..."
                   required
                 />
@@ -116,27 +122,29 @@ const MobileRideSelection = () => {
                   <select
                     value={day}
                     onChange={(e) => setDay(e.target.value)}
-                    className="w-full p-2 pl-10 border-2 border-gray-500 rounded-lg cursor-pointer appearance-none bg-gray-50"
+                    className="w-full p-2 pl-10 mr-5 border border-gray-200 rounded-lg cursor-pointer appearance-none bg-neutral-100"
                     required
                   >
                     <option value="Today">Today</option>
                     <option value="Tomorrow">Tomorrow</option>
                   </select>
+                  <span className="absolute right-2 top-2/4 transform -translate-y-1/2 pointer-events-none text-gray-800">▼</span>
                 </div>
 
                 {/* Time Selection */}
-                <div className="relative">
+                <div className="relative items-center">
                   <Clock10 className="absolute left-3 top-1/2 transform -translate-y-1/2 text-black" size={20} />
                   <select
                     name="timing"
                     value={formData.timing}
                     onChange={handleChange}
-                    className="w-full p-2 pl-10 border-2 border-gray-500 rounded-lg cursor-pointer appearance-none bg-gray-50"
+                    className="w-full p-2 pl-10 mr-5 border border-gray-200 rounded-lg cursor-pointer appearance-none bg-neutral-100"
                     required
                   >
                     <option value="" disabled>Select Time...</option>
                     {generateTimings()}
                   </select>
+                  <span className="absolute right-2 top-2/4 transform -translate-y-1/2 pointer-events-none text-gray-800">▼</span>
                 </div>
               </div>
 

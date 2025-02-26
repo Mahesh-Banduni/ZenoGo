@@ -3,9 +3,9 @@ import {scooter, mini, sedan, SUV} from "../../utils/icons"
 const RideOptions = ({ selectedOption }) => {
   const options = [
     { id: "Bike", image: scooter, name: "Bike", description: "Zip through traffic at affordable fares" },
-    { id: "mini", image: mini, name: "Mini", description: "Comfy hatchbacks at pocket-friendly fares" },
-    { id: "sedan", image: sedan, name: "Sedan", description: "Sedans with free WiFi and top drivers" },
-    { id: "suv", image: SUV, name: "SUV", description: "SUVs with free WiFi and top drivers" }
+    { id: "Mini", image: mini, name: "Mini", description: "Comfy hatchbacks at pocket-friendly fares" },
+    { id: "Sedan", image: sedan, name: "Sedan", description: "Sedans with free WiFi and top drivers" },
+    { id: "SUV", image: SUV, name: "SUV", description: "SUVs with free WiFi and top drivers" }
   ];
 
   // Find the selected ride
@@ -15,7 +15,7 @@ const RideOptions = ({ selectedOption }) => {
 
   return (
     <div className="flex flex-col gap-4">
-      <div className="p-3 rounded-lg border border-orange-500 bg-orange-50 flex items-center justify-start">
+      <div className="p-3 rounded-lg border border-amber-500 bg-amber-50 flex items-center justify-start">
         <img src={selectedRide.image} alt={selectedRide.name} className="h-8 w-12 mr-3" />
         <div className="flex flex-col items-start text-left w-full">
           <h3 className="font-bold">{selectedRide.name}</h3>

@@ -15,7 +15,7 @@ const RideOptions = ({ onSelect, selectedOption }) => {
             key={option.id}
             className={`p-3 rounded-lg border flex items-center justify-items-start ${
               selectedOption === option.id
-                ? 'border-orange-500 bg-orange-50'
+                ? 'border-amber-500 bg-amber-50'
                 : 'border-gray-300'
             }`}
             onClick={() => onSelect(option.id)}

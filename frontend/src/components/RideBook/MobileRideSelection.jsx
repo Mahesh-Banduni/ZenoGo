@@ -30,13 +30,17 @@ const MobileRideSelection = (rideData) => {
         <div className="bg-white rounded-t-xl shadow-lg">
           {/* Drag handle */}
           <div 
-            className="flex justify-center py-2 cursor-pointer" 
+            className="flex justify-center py-2 cursor-pointer gap-2" 
             onClick={toggleExpanded}
           >
+            <center>
+        <h1 className='text-xl text-gray-800 font-bold mb-2 mt-2'>Ride Details</h1>
+        </center>
             {isExpanded ? 
-              <ChevronDown className="text-gray-500" size={24} /> : 
-              <ChevronUp className="text-gray-500" size={24} />
+              <ChevronDown className="text-gray-500 mb-2 mt-2" size={24} /> : 
+              <ChevronUp className="text-gray-500 mb-2 mt-2" size={24} />
             }
+            
           </div>
           
           {/* Basic info always visible */}
@@ -49,7 +53,7 @@ const MobileRideSelection = (rideData) => {
                 name="pickup"
                 value={rideData.rideData.pickup}
                 disabled={true}
-                className="w-full p-2 pl-10 pr-8 bg-gray-50 border-2 border-gray-500 rounded-lg focus:bg-gray-100 focus:border-transparent"
+                className="w-full p-2 pl-10 pr-8 bg-neutral-200 border border-gray-300 rounded-lg focus:bg-gray-100 focus:border-transparent"
                 placeholder="Pickup Location..."
                 required
               />
@@ -63,7 +67,7 @@ const MobileRideSelection = (rideData) => {
                 name="dropoff"
                 value={rideData.rideData.dropoff}
                 disabled={true}
-                className="w-full p-2 pl-10 pr-8 bg-gray-50 border-2 border-gray-500 rounded-lg focus:bg-gray-100 focus:border-transparent"
+                className="w-full p-2 pl-10 pr-8 bg-neutral-200 border border-gray-300 rounded-lg focus:bg-gray-100 focus:border-transparent"
                 placeholder="Dropoff Location..."
                 required
               />
@@ -81,7 +85,7 @@ const MobileRideSelection = (rideData) => {
         <input
           value={rideData.rideData.day}
           disabled={true}
-          className="w-full p-2 pl-10 mr-7 bg-gray-50 border-2 border-gray-500 rounded-lg transition duration-200 ease-in-out text-gray-700 cursor-pointer appearance-none"
+          className="w-full p-2 pl-10 mr-7 bg-neutral-100 border border-gray-200 rounded-lg transition duration-200 ease-in-out text-gray-700 cursor-pointer appearance-none"
         >
         </input>
       </div>
@@ -94,7 +98,7 @@ const MobileRideSelection = (rideData) => {
           value={rideData.rideData.timing}
           disabled={true}
           required
-          className="w-full p-2 pl-10 mr-5 bg-gray-50 border-2 border-gray-500 rounded-lg transition duration-200 ease-in-out text-gray-700 cursor-pointer appearance-none"
+          className="w-full p-2 pl-10 mr-5 bg-neutral-100 border border-gray-200 rounded-lg transition duration-200 ease-in-out text-gray-700 cursor-pointer appearance-none"
         >
         </input>
       </div>
@@ -102,28 +106,28 @@ const MobileRideSelection = (rideData) => {
 
     <div className="mb-4 mt-2 relative flex items-center gap-2">   
           <Wallet className="absolute left-3 fill-amber-500 text-black" size={22} />
-          <p className="absolute pl-11 text-black text-xl">Fare</p>
+          <p className="absolute pl-11 text-black">Fare</p>
               <input
                 type="text"
                 name="pickup"
                 // value={rideData.rideData.fare}
                 value="₹1234"
                 disabled={true}
-                className="w-full p-2 pl-23 pr-8 bg-gray-50 text-xl text-black border-2 border-gray-500 rounded-lg focus:bg-gray-100 focus:border-transparent"
+                className="w-full p-2 pl-20 pr-8 bg-neutral-100 border border-gray-400 font-bold text-black rounded-lg focus:bg-gray-100 focus:border-transparent"
                 placeholder="Pickup Location..."
                 required
               />
             </div>
 
             <div className="relative flex items-center">
-  <BadgeIndianRupee className="absolute left-3 top-1/2 transform fill-emerald-500 -translate-y-1/2 text-white" size={28} />
+  <BadgeIndianRupee className="absolute left-2.5 top-1/2 transform fill-emerald-500 -translate-y-1/2 text-white" size={28} />
   
   <select
     value={paymentMode} // Ensure it reflects the selected option
     onChange={(e) => setPaymentMode(e.target.value)} // Fix function to set state
-    className="w-full p-2 pl-13 pr-8 bg-gray-50 border-2 font-semibold border-gray-500 rounded-lg transition duration-200 ease-in-out text-gray-700 cursor-pointer appearance-none"
+    className="w-full p-2 pl-13 pr-8 bg-neutral-100 border border-gray-200 font-semibold rounded-lg transition duration-200 ease-in-out text-gray-700 cursor-pointer appearance-none"
   >
-    <option value="Cash">Cash</option>
+    <option value="Cash">Pay By Cash</option>
     <option value="Digital Payment">Digital Payment</option>
   </select>
   

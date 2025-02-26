@@ -40,7 +40,7 @@ const FillRideDetails = () => {
               name="pickup"
               value={formData.pickup}
               onChange={(e) => { handleChange(e); setDropdownType('pickup'); }}
-              className="w-full p-2 pl-10 pr-8 border-2 rounded-lg bg-gray-50"
+              className="w-full p-2 pl-10 pr-8 rounded-lg bg-neutral-200 border border-gray-300"
               placeholder="Pickup Location..."
               required
             />
@@ -62,7 +62,7 @@ const FillRideDetails = () => {
 
             {/* Dropdown for location suggestions */}
             {showDropdown && dropdownType === 'pickup' && locationResults.length > 0 && (
-              <ul className="absolute w-full bg-white border rounded-lg shadow-lg mt-1 z-50 max-h-60 overflow-y-auto">
+              <ul className="absolute w-full bg-white  border rounded-lg shadow-lg mt-1 z-50 max-h-60 overflow-y-auto">
                 {locationResults.map((location, index) => (
                   <li 
                     key={index} 
@@ -86,7 +86,7 @@ const FillRideDetails = () => {
             name="dropoff"
             value={formData.dropoff}
             onChange={(e) => { handleChange(e); setDropdownType('dropoff'); }}
-            className="w-full p-2 pl-10 border-2 rounded-lg bg-gray-50 pr-8"
+            className="w-full p-2 pl-10 rounded-lg bg-neutral-200 pr-8 border border-gray-300"
             placeholder="Dropoff Location..."
             required
           />
@@ -111,7 +111,7 @@ const FillRideDetails = () => {
           name="day"
           value={formData.day}
           onChange={handleChange}
-          className="w-full p-2 pl-10 mr-7 bg-gray-50 border-2 border-gray-500 rounded-lg transition duration-200 ease-in-out text-gray-700 cursor-pointer appearance-none"
+          className="w-full p-2 pl-10 mr-7 bg-neutral-100 border border-gray-200 rounded-lg transition duration-200 ease-in-out text-gray-700 cursor-pointer appearance-none"
         >
           <option value="Today">Today</option>
           <option value="Tomorrow">Tomorrow</option>
@@ -127,7 +127,7 @@ const FillRideDetails = () => {
           value={formData.timing}
           onChange={handleChange}
           required
-          className="w-full p-2 pl-10 mr-5 bg-gray-50 border-2 border-gray-500 rounded-lg transition duration-200 ease-in-out text-gray-700 cursor-pointer appearance-none"
+          className="w-full p-2 pl-10 mr-5 bg-neutral-100 border border-gray-200 rounded-lg transition duration-200 ease-in-out text-gray-700 cursor-pointer appearance-none"
         >
           <option value="" disabled className="text-gray-400 bg-gray-50 text-wrap">
             Select Time...
