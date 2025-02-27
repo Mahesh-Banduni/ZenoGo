@@ -150,7 +150,7 @@ const Header = () => {
                   <div className="bg-gradient-to-r from-orange-400 to-amber-500 p-1 rounded-full">
                     <CgProfile size={18} className="text-white" />
                   </div>
-                  <span className="text-sm font-medium text-gray-800 hidden sm:block">Hi, Mahesh</span>
+                  <span className="text-sm font-medium text-gray-800">Mahesh</span>
                   <ChevronDown size={16} className={`text-gray-600 transition-transform duration-200 ${isProfileDropdownOpen ? 'rotate-180' : ''}`} />
                 </button>
                 <AnimatePresence>
@@ -173,6 +173,20 @@ const Header = () => {
                       >
                         Manage Account
                       </NavLink>
+                      <NavLink 
+                        to="/profile" 
+                        className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-amber-50 transition-colors duration-200"
+                        onClick={() => setIsProfileDropdownOpen(false)}
+                      >
+                        Upcoming Rides
+                      </NavLink>
+                      <NavLink 
+                        to="/profile" 
+                        className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-amber-50 transition-colors duration-200"
+                        onClick={() => setIsProfileDropdownOpen(false)}
+                      >
+                        Completed Rides
+                      </NavLink>
                       <button 
                         onClick={handleLogout} 
                         className="flex items-center w-full px-4 py-2 text-left text-sm text-red-600 hover:bg-red-50 transition-colors duration-200"
@@ -190,123 +204,178 @@ const Header = () => {
       
       {/* Mobile Menu */}
       <AnimatePresence>
-        {isMenuOpen && (
-          <>
-            <motion.div 
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 0.6 }}
-              exit={{ opacity: 0 }}
-              className="fixed inset-0 bg-black bg-opacity-60 md:hidden z-40"
-              onClick={() => setIsMenuOpen(false)}
-            />
-            <motion.div 
-              initial={{ opacity: 0, x: '-100%' }} 
-              animate={{ opacity: 1, x: 0 }} 
-              exit={{ opacity: 0, x: '-100%' }}
-              transition={{ duration: 0.3, ease: "easeInOut" }}
-              className="fixed inset-y-0 left-0 w-72 max-w-[80vw] h-full bg-white shadow-xl md:hidden flex flex-col z-50"
-              ref={menuRef}
-            >
-              <div className="p-5 bg-gradient-to-r from-amber-50 to-amber-100 border-b border-gray-200">
-                <div className="flex justify-between items-center">
-                  <Link to="/" className="flex items-center gap-2" onClick={handleNavLinkClick}>
-                    <div className="bg-gradient-to-r from-amber-200 to-orange-300 p-1 rounded-full">
-                      <img src={logo} alt="Logo" className="h-7 w-auto" />
-                    </div>
-                    <span className="text-xl font-bold bg-gradient-to-r from-orange-500 to-amber-600 bg-clip-text text-transparent">ZenoGo</span>
-                  </Link>
-                  <button 
-                    onClick={() => setIsMenuOpen(false)} 
-                    className="p-2 text-gray-500 hover:text-gray-700 hover:bg-gray-100 rounded-full transition-colors duration-200 focus:outline-none"
-                  >
-                    <X size={20} />
-                  </button>
-                </div>
-                {token && (
-                  <div className="mt-4 py-2 px-3 bg-amber-100 rounded-lg">
-                    <p className="text-sm font-medium text-gray-800">Hi, Mahesh</p>
-                    <p className="text-xs text-gray-500">user@example.com</p>
-                  </div>
-                )}
+  {isMenuOpen && (
+    <>
+      <motion.div 
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 0.6 }}
+        exit={{ opacity: 0 }}
+        className="fixed inset-0 bg-black bg-opacity-60 md:hidden z-40"
+        onClick={() => setIsMenuOpen(false)}
+      />
+      <motion.div 
+        initial={{ opacity: 0, x: '-100%' }} 
+        animate={{ opacity: 1, x: 0 }} 
+        exit={{ opacity: 0, x: '-100%' }}
+        transition={{ duration: 0.3, ease: "easeInOut" }}
+        className="fixed inset-y-0 left-0 w-72 max-w-[80vw] h-full bg-white shadow-xl md:hidden flex flex-col z-50"
+        ref={menuRef}
+      >
+        <div className="p-5 bg-gradient-to-r from-amber-50 to-amber-100 border-b border-gray-200">
+          <div className="flex justify-between items-center">
+            <Link to="/" className="flex items-center gap-2" onClick={handleNavLinkClick}>
+              <div className="bg-gradient-to-r from-amber-200 to-orange-300 p-1 rounded-full">
+                <img src={logo} alt="Logo" className="h-7 w-auto" />
               </div>
-              
-              <div className="flex-1 overflow-y-auto py-4 px-5">
-                <div className="space-y-2">
-                  <NavLink 
-                    to="/select-ride" 
-                    className={({isActive}) => 
-                      `flex items-center py-3 px-4 rounded-lg text-base ${
-                        isActive 
-                          ? 'bg-gradient-to-r from-orange-500 to-amber-500 text-white font-semibold' 
-                          : 'text-gray-700 hover:bg-amber-100'
-                      } transition-colors duration-200`
-                    }
-                    onClick={handleNavLinkClick}
-                  >
-                    Book a Ride
-                  </NavLink>
-                  <NavLink 
-                    to="/profile" 
-                    className={({isActive}) => 
-                      `flex items-center py-3 px-4 rounded-lg text-base ${
-                        isActive 
-                          ? 'bg-gradient-to-r from-orange-500 to-amber-500 text-white font-semibold' 
-                          : 'text-gray-700 hover:bg-amber-100'
-                      } transition-colors duration-200`
-                    }
-                    onClick={handleNavLinkClick}
-                  >
-                    Reserve a Ride
-                  </NavLink>
-                  {token && (
-                    <NavLink 
-                      to="/profile" 
-                      className={({isActive}) => 
-                        `flex items-center py-3 px-4 rounded-lg text-base ${
-                          isActive 
-                            ? 'bg-gradient-to-r from-orange-500 to-amber-500 text-white font-semibold' 
-                            : 'text-gray-700 hover:bg-amber-100'
+              <span className="text-xl font-bold bg-gradient-to-r from-orange-500 to-amber-600 bg-clip-text text-transparent">ZenoGo</span>
+            </Link>
+            <button 
+              onClick={() => setIsMenuOpen(false)} 
+              className="p-2 text-gray-500 hover:text-gray-700 hover:bg-gray-100 rounded-full transition-colors duration-200 focus:outline-none"
+            >
+              <X size={20} />
+            </button>
+          </div>
+          {token && (
+            <div className="mt-4 py-2 px-3 bg-amber-100 rounded-lg">
+              <p className="text-sm font-medium text-gray-800">Hi, Mahesh</p>
+              <p className="text-xs text-gray-500">user@example.com</p>
+            </div>
+          )}
+        </div>
+        
+        <div className="flex-1 overflow-y-auto py-4 px-5">
+          <div className="space-y-4">
+            {token && (
+              <>
+                {/* User Profile Section with Visual Distinction */}
+                <div className="rounded-xl overflow-hidden shadow-sm border border-amber-200">
+                  {/* Profile Section Header */}
+                  <div className="bg-gradient-to-r from-amber-200 to-amber-100 px-4 py-2 border-b border-amber-200">
+                    <h3 className="font-medium text-amber-800 flex items-center">
+                      <CgProfile className="mr-2" size={18} />
+                      Your Profile
+                    </h3>
+                  </div>
+                  
+                  {/* Profile Navigation Links */}
+                  <div className="bg-amber-50">
+                    <NavLink
+                      to="/profile"
+                      className={({ isActive }) =>
+                        `block py-3 px-4 border-b border-amber-100 text-sm ${
+                          isActive
+                            ? "text-orange-600 font-semibold bg-amber-100"
+                            : "text-gray-700 hover:bg-amber-100"
                         } transition-colors duration-200`
                       }
                       onClick={handleNavLinkClick}
                     >
                       Manage Account
                     </NavLink>
-                  )}
-                </div>
-              </div>
-              
-              <div className="p-5 border-t border-gray-200 mt-auto">
-                {!token ? (
-                  <div className="grid grid-cols-2 gap-3">
-                    <NavLink 
-                      to="/login" 
+                    <NavLink
+                      to="/upcoming-rides"
+                      className={({ isActive }) =>
+                        `block py-3 px-4 border-b border-amber-100 text-sm ${
+                          isActive
+                            ? "text-orange-600 font-semibold bg-amber-100"
+                            : "text-gray-700 hover:bg-amber-100"
+                        } transition-colors duration-200`
+                      }
                       onClick={handleNavLinkClick}
-                      className="py-2 px-4 border border-orange-400 text-orange-500 rounded-lg text-center font-medium hover:bg-orange-50 hover:border-orange-500 transition-all duration-200"
                     >
-                      Login
+                      Upcoming Rides
                     </NavLink>
-                    <NavLink 
-                      to="/register" 
+                    <NavLink
+                      to="/completed-rides"
+                      className={({ isActive }) =>
+                        `block py-3 px-4 text-sm ${
+                          isActive
+                            ? "text-orange-600 font-semibold bg-amber-100"
+                            : "text-gray-700 hover:bg-amber-100"
+                        } transition-colors duration-200`
+                      }
                       onClick={handleNavLinkClick}
-                      className="py-2 px-4 bg-gradient-to-r from-orange-500 to-amber-500 text-white rounded-lg text-center font-medium hover:from-orange-600 hover:to-amber-600 transition-all duration-200"
                     >
-                      Sign Up
+                      Completed Rides
                     </NavLink>
                   </div>
-                ) : (
-                  <button 
-                    onClick={handleLogout} 
-                    className="w-full py-2 px-4 text-center text-red-600 border border-red-200 rounded-lg hover:bg-red-50 transition-colors duration-200"
-                  >
-                    Logout
-                  </button>
-                )}
+                </div>
+              </>
+            )}
+
+            {/* Main Navigation Section */}
+            <div className="mt-2">
+              <h3 className="text-xs uppercase tracking-wider text-gray-500 font-medium mb-2 px-1">Ride Options</h3>
+              <div className="space-y-2 rounded-xl overflow-hidden shadow-sm border border-gray-200">
+                <NavLink
+                  to="/select-ride"
+                  className={({ isActive }) =>
+                    `flex items-center py-3 px-4 ${
+                      isActive
+                        ? "bg-gradient-to-r from-orange-500 to-amber-500 text-white font-semibold"
+                        : "text-gray-700 hover:bg-gray-100"
+                    } transition-colors duration-200 border-b border-gray-200`
+                  }
+                  onClick={handleNavLinkClick}
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                  </svg>
+                  Book a Ride
+                </NavLink>
+                <NavLink
+                  to="/reserve-ride"
+                  className={({ isActive }) =>
+                    `flex items-center py-3 px-4 ${
+                      isActive
+                        ? "bg-gradient-to-r from-orange-500 to-amber-500 text-white font-semibold"
+                        : "text-gray-700 hover:bg-gray-100"
+                    } transition-colors duration-200`
+                  }
+                  onClick={handleNavLinkClick}
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                  Reserve a Ride
+                </NavLink>
               </div>
-            </motion.div>
-          </>
-        )}
-      </AnimatePresence>
+            </div>
+          </div>
+        </div>
+        
+        <div className="p-5 border-t border-gray-200 mt-auto">
+          {!token ? (
+            <div className="grid grid-cols-2 gap-3">
+              <NavLink 
+                to="/login" 
+                onClick={handleNavLinkClick}
+                className="py-2 px-4 border border-orange-400 text-orange-500 rounded-lg text-center font-medium hover:bg-orange-50 hover:border-orange-500 transition-all duration-200"
+              >
+                Login
+              </NavLink>
+              <NavLink 
+                to="/register" 
+                onClick={handleNavLinkClick}
+                className="py-2 px-4 bg-gradient-to-r from-orange-500 to-amber-500 text-white rounded-lg text-center font-medium hover:from-orange-600 hover:to-amber-600 transition-all duration-200"
+              >
+                Sign Up
+              </NavLink>
+            </div>
+          ) : (
+            <button 
+              onClick={handleLogout} 
+              className="w-full py-2 px-4 text-center text-red-600 border border-red-200 rounded-lg hover:bg-red-50 transition-colors duration-200"
+            >
+              Logout
+            </button>
+          )}
+        </div>
+      </motion.div>
+    </>
+  )}
+</AnimatePresence>
       
       <ToastContainer />
     </nav>
