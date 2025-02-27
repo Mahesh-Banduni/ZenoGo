@@ -102,12 +102,12 @@ const Header = () => {
             </button>
             
             <Link to="/" className="flex items-center group">
-              <div className="relative overflow-hidden rounded-full p-1 bg-gradient-to-br from-amber-200 to-orange-300 shadow-sm transition-transform duration-300 group-hover:scale-105">
+              <div className="relative overflow-hidden rounded-full shadow-sm transition-transform duration-300 group-hover:scale-105">
                 <img src={logo} alt="ZenoGo Logo" className="h-7 sm:h-8 md:h-9 w-auto object-contain transform transition-transform duration-300 group-hover:rotate-3" />
               </div>
               <div className="ml-2 flex flex-col">
                 <h1 className="text-xl sm:text-2xl font-bold bg-gradient-to-r from-orange-500 to-amber-600 bg-clip-text text-transparent">ZenoGo</h1>
-                <span className="text-xs text-gray-500 hidden sm:block">Travel Smarter</span>
+                <span className="text-xs text-gray-500 hidden sm:block">Smart Moves, Seamless Journeys</span>
               </div>
             </Link>
           </div>
@@ -224,7 +224,7 @@ const Header = () => {
         <div className="p-5 bg-gradient-to-r from-amber-50 to-amber-100 border-b border-gray-200">
           <div className="flex justify-between items-center">
             <Link to="/" className="flex items-center gap-2" onClick={handleNavLinkClick}>
-              <div className="bg-gradient-to-r from-amber-200 to-orange-300 p-1 rounded-full">
+              <div className="rounded-full">
                 <img src={logo} alt="Logo" className="h-7 w-auto" />
               </div>
               <span className="text-xl font-bold bg-gradient-to-r from-orange-500 to-amber-600 bg-clip-text text-transparent">ZenoGo</span>

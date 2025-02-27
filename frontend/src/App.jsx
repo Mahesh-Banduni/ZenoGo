@@ -8,6 +8,7 @@ const App = () => {
     <>
     <Header />
     <Outlet></Outlet>
+    <Footer />
     </>
   )
 }
