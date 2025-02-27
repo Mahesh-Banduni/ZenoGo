@@ -122,7 +122,7 @@ const Header = () => {
             }>
               Book a Ride
             </NavLink>
-            <NavLink to="/profile" className={({isActive}) => 
+            <NavLink to="/book-ride" className={({isActive}) => 
               `px-3 py-2 rounded-full text-sm lg:text-base font-medium transition-all duration-200
               ${isActive 
                 ? 'bg-gradient-to-r from-orange-500 to-amber-500 text-white shadow-sm' 
@@ -137,7 +137,7 @@ const Header = () => {
             {!token ? (
               <>
                 <NavLink to="/login" className="text-xs sm:text-sm px-3 sm:px-4 py-2 border border-orange-400 bg-white text-orange-500 font-medium rounded-full whitespace-nowrap hover:bg-orange-50 hover:border-orange-500 transition-all duration-200 shadow-sm">Login</NavLink>
-                <NavLink to="/register" className="text-xs sm:text-sm px-3 sm:px-4 py-2 bg-gradient-to-r from-orange-500 to-amber-500 text-white rounded-full whitespace-nowrap hover:from-orange-600 hover:to-amber-600 transition-all duration-200 shadow-sm transform hover:-translate-y-0.5">Sign Up</NavLink>
+                <NavLink to="/signup" className="text-xs sm:text-sm px-3 sm:px-4 py-2 bg-gradient-to-r from-orange-500 to-amber-500 text-white rounded-full whitespace-nowrap hover:from-orange-600 hover:to-amber-600 transition-all duration-200 shadow-sm transform hover:-translate-y-0.5">Sign Up</NavLink>
               </>
             ) : (
               <div className="relative" ref={profileDropdownRef}>
@@ -325,7 +325,7 @@ const Header = () => {
                   Book a Ride
                 </NavLink>
                 <NavLink
-                  to="/reserve-ride"
+                  to="/book-ride"
                   className={({ isActive }) =>
                     `flex items-center py-3 px-4 ${
                       isActive
@@ -356,7 +356,7 @@ const Header = () => {
                 Login
               </NavLink>
               <NavLink 
-                to="/register" 
+                to="/signup" 
                 onClick={handleNavLinkClick}
                 className="py-2 px-4 bg-gradient-to-r from-orange-500 to-amber-500 text-white rounded-lg text-center font-medium hover:from-orange-600 hover:to-amber-600 transition-all duration-200"
               >

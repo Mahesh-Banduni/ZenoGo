@@ -22,8 +22,8 @@ const BookRide = lazy(() => import("./pages/BookRide"));
 // const Checkout = lazy(() => import("./pages/Checkout"));
 // const AdminDashboard= lazy(() => import('./pages/AdminDashboard'));
 // const Profile = lazy(() => import("./pages/Profile"));
-// const Login = lazy(() => import("./pages/Login"));
-// const Register = lazy(() => import("./pages/Register"));
+const Login = lazy(() => import("./pages/Login"));
+const SignUp = lazy(() => import("./pages/SignUp"));
 // const ContactUs = lazy(() => import("./pages/ContactUs"));
 // const AboutUs = lazy(() => import("./pages/AboutUs"));
 
@@ -81,22 +81,22 @@ const routes = createBrowserRouter([
       //     </Suspense>
       //   ),
       // },
-      // {
-      //   path: "/login",
-      //   element: (
-      //     <Suspense fallback={<Loader />}>
-      //       <Login />
-      //     </Suspense>
-      //   ),
-      // },
-      // {
-      //   path: "/register",
-      //   element: (
-      //     <Suspense fallback={<Loader />}>
-      //       <Register />
-      //     </Suspense>
-      //   ),
-      // },
+      {
+        path: "/login",
+        element: (
+          <Suspense fallback={<Loader />}>
+            <Login />
+          </Suspense>
+        ),
+      },
+      {
+        path: "/signup",
+        element: (
+          <Suspense fallback={<Loader />}>
+            <SignUp />
+          </Suspense>
+        ),
+      },
       // {
       //   path: "/contact",
       //   element: (
