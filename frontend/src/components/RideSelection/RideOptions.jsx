@@ -9,11 +9,11 @@ const RideOptions = ({ onSelect, selectedOption }) => {
     ];
   
     return (
-      <div className="flex flex-col gap-4">
+      <div className="flex flex-col gap-2">
         {options.map((option) => (
           <button
             key={option.id}
-            className={`p-3 rounded-lg border flex items-center justify-items-start ${
+            className={`p-2 rounded-lg border flex items-center justify-items-start ${
               selectedOption === option.id
                 ? 'border-amber-500 bg-amber-50'
                 : 'border-gray-300'
@@ -22,7 +22,7 @@ const RideOptions = ({ onSelect, selectedOption }) => {
           >
             <img src={option.image} alt={option.image} className="h-8 w-12 mr-2" />
             <div className="flex flex-col items-start text-left w-full">
-               <h3 className="font-bold">{option.name}</h3>
+               <h3 className="font-bold sm:text-sm">{option.name}</h3>
                <p className="text-xs text-gray-600 break-words">{option.description}</p>
             </div>
 

@@ -42,22 +42,22 @@ const MobileRideSelection = () => {
       </div>
 
       {/* Bottom Sheet UI */}
-      <div className="absolute bottom-0 left-0 right-0 pb-10 mb-5">
-        <form className="bg-white rounded-t-xl shadow-lg " onSubmit={handleSubmit}>
+      <div className="absolute bottom-0 left-0 right-0 pb-10 mb-5 mt-30">
+        <form className="bg-white rounded-t-xl shadow-lg" onSubmit={handleSubmit}>
           {/* Drag handle */}
           <div className="flex justify-center py-2 cursor-pointer gap-2" onClick={toggleExpanded}>
           <center>
-        <h1 className='text-xl text-gray-800 font-bold mb-2 mt-2'>Add Ride Details</h1>
+        <h1 className='text-sm text-gray-800 font-bold mb-1.5 mt-1.5'>Add Ride Details</h1>
         </center>
             {isExpanded ? 
-              <ChevronDown className="text-gray-500 mb-2 mt-2" size={24} /> : 
-              <ChevronUp className="text-gray-500 mb-2 mt-2" size={24} />
+              <ChevronDown className="text-gray-500 mb-1.5 mt-1.5" size={24} /> : 
+              <ChevronUp className="text-gray-500 mb-1.5 mt-1.5" size={24} />
             }
           </div>
 
           {/* Pickup Location */}
           <div className="px-4 pb-2">
-            <div className="mb-4 relative">
+            <div className="mb-3 relative">
               <div className="flex items-center">
                 <MapPin className="absolute left-3 top-3 text-black" size={20} />
                 <input
@@ -66,7 +66,7 @@ const MobileRideSelection = () => {
                   value={formData.pickup}
                   onChange={(e) => { handleChange(e); setDropdownType('pickup'); }}
                   onClick={toggleExpanded}
-                  className="w-full p-2 pl-10 pr-8 rounded-lg bg-neutral-200 border border-gray-300"
+                  className="w-full p-2 pl-10 pr-8 text-sm rounded-lg bg-neutral-200 border border-gray-300"
                   placeholder="Pickup Location..."
                   required
                 />
@@ -74,9 +74,9 @@ const MobileRideSelection = () => {
                 {formData.pickup && <Cross className="absolute right-3 cursor-pointer rotate-45 bg-gray-800 rounded-full fill-white" size={16} onClick={() => clearInput("pickup")} />}
               </div>
               {showDropdown && dropdownType === 'pickup' && locationResults.length > 0 && (
-                <ul className="absolute w-full bg-white border rounded-lg shadow-lg mt-1 z-50 max-h-60 overflow-y-auto">
+                <ul className="absolute w-full bg-white border rounded-lg shadow-lg mt-1 z-50 max-h-60 overflow-y-auto  text-sm">
                   {locationResults.map((location, index) => (
-                    <li key={index} className="p-2 hover:bg-gray-100 cursor-pointer" onClick={() => handleSelectLocation('pickup', location.address)}>
+                    <li key={index} className="p-2 hover:bg-gray-100 cursor-pointer text-sm" onClick={() => handleSelectLocation('pickup', location.address)}>
                       {location.address}
                     </li>
                   ))}
@@ -85,7 +85,7 @@ const MobileRideSelection = () => {
             </div>
 
             {/* Dropoff Location */}
-            <div className="mb-2 relative">
+            <div className="mb-1 relative">
               <div className="flex items-center">
                 <Navigation className="absolute left-3 top-3 text-black fill-black" size={20} />
                 <input
@@ -93,7 +93,7 @@ const MobileRideSelection = () => {
                   name="dropoff"
                   value={formData.dropoff}
                   onChange={(e) => { handleChange(e); setDropdownType('dropoff'); }}
-                  className="w-full p-2 pl-10 rounded-lg pr-8 bg-neutral-200 border border-gray-300"
+                  className="w-full p-2 pl-10 rounded-lg text-sm pr-8 bg-neutral-200 border border-gray-300"
                   placeholder="Dropoff Location..."
                   required
                 />
@@ -102,7 +102,7 @@ const MobileRideSelection = () => {
               {showDropdown && dropdownType === 'dropoff' && locationResults.length > 0 && (
                 <ul className="absolute w-full bg-white border rounded-lg shadow-lg mt-1 z-50">
                   {locationResults.map((location, index) => (
-                    <li key={index} className="p-2 hover:bg-gray-200 cursor-pointer" onClick={() => handleSelectLocation('dropoff', location.address)}>
+                    <li key={index} className="p-2 hover:bg-gray-100 cursor-pointer text-sm" onClick={() => handleSelectLocation('dropoff', location.address)}>
                       {location.address}
                     </li>
                   ))}
@@ -122,7 +122,7 @@ const MobileRideSelection = () => {
                   <select
                     value={day}
                     onChange={(e) => setDay(e.target.value)}
-                    className="w-full p-2 pl-10 mr-5 border border-gray-200 rounded-lg cursor-pointer appearance-none bg-neutral-100"
+                    className="w-full p-2 pl-10 mr-5 text-sm border border-gray-200 rounded-lg cursor-pointer appearance-none bg-neutral-100"
                     required
                   >
                     <option value="Today">Today</option>
@@ -133,12 +133,12 @@ const MobileRideSelection = () => {
 
                 {/* Time Selection */}
                 <div className="relative items-center">
-                  <Clock10 className="absolute left-3 top-1/2 transform -translate-y-1/2 text-black" size={20} />
+                  <Clock10 className="absolute left-3 text-sm top-1/2 transform -translate-y-1/2 text-black" size={20} />
                   <select
                     name="timing"
                     value={formData.timing}
                     onChange={handleChange}
-                    className="w-full p-2 pl-10 mr-5 border border-gray-200 rounded-lg cursor-pointer appearance-none bg-neutral-100"
+                    className="w-full p-2 pl-10 mr-5 text-sm border border-gray-200 rounded-lg cursor-pointer appearance-none bg-neutral-100"
                     required
                   >
                     <option value="" disabled>Select Time...</option>
@@ -149,7 +149,7 @@ const MobileRideSelection = () => {
               </div>
 
               {/* Ride Options */}
-              <p className="text-sm mb-3 mt-2 font-medium">Available Rides:</p>
+              <p className="text-sm mb-3 mt-1 font-medium">Available Rides:</p>
               <RideOptions onSelect={handleSelectRide} selectedOption={formData.selectedRide} />
             </div>
           )}
@@ -157,7 +157,7 @@ const MobileRideSelection = () => {
           {/* Book Ride Button */}
           <div className="px-4 pb-6 pt-2">
             {/* Submit Button */}
-            <button className="w-full py-3 mt-4 bg-gray-700 text-white rounded-lg font-bold" type="submit" disabled={loading}>
+            <button className="w-full py-3 bg-gray-700 text-white rounded-lg font-bold" type="submit" disabled={loading}>
           {loading ? "Processing..." : "Continue Booking"}
         </button>
           </div>
