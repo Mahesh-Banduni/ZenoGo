@@ -2,125 +2,105 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import RideOptions from './RideOptions';
 import useRideSelectBook from '../../hooks/useRideSelectBook';
-import { Calendar1, Currency, Cross, CrossIcon, Locate, LucideCrosshair, MapIcon, MapPin, MapPinHouse, Navigation, Navigation2, Navigation2Icon, Navigation2Off, Navigation2OffIcon, NavigationIcon, NavigationOff, NavigationOffIcon, Calendar, ClockAlertIcon, Clock10, LocateFixed, IndianRupee, BadgeIndianRupee, WalletCards, Wallet } from 'lucide-react';
+import { Calendar1, MapPin, Navigation, Milestone, ClockIcon, Wallet, BadgeIndianRupee } from 'lucide-react';
 import { IoCash } from 'react-icons/io5';
 
-const RideDetails = (rideData) => {
-  console.log(rideData.rideData);
+const RideDetails = ({ rideData }) => {
   const navigate = useNavigate();
   const [paymentMode, setPaymentMode] = useState("Cash");
-  const { formData, handleChange, handleSubmit, loading, status, clearInput } = useRideSelectBook();
-  const [day, setDay] = useState("Today"); // Default to Today
+  const { handleSubmit, loading } = useRideSelectBook();
 
   return (
-    <div className="max-w-4xl mx-auto space-y-8">
+    <div className="max-w-lg mx-auto px-4">
       <form 
-        className="sm:relative bg-white-800 rounded-lg w-full max-w-md"
+        className="bg-white shadow-xl rounded-2xl p-6 space-y-5"
         onSubmit={handleSubmit}
       >
-        <div className="bg-white rounded-xl shadow-lg p-6 space-y-6">
-          <center>
-        <h1 className='text-xl text-gray-800 font-bold mb-6'>Ride Details</h1>
-        </center>
-          <div className="mb-4 mt-2 relative flex items-center">   
-          <MapPin className="absolute left-3 text-black " size={20} />
-              <input
-                type="text"
-                name="pickup"
-                value={rideData.rideData.pickup}
-                disabled={true}
-                className="w-full p-2 pl-10 pr-8 bg-neutral-200 border border-gray-300 rounded-lg focus:bg-gray-100 focus:border-transparent"
-                placeholder="Pickup Location..."
-                required
-              />
-            </div>
+        <h1 className="text-2xl font-bold text-gray-800 text-center">Ride Details</h1>
 
-          <div className="mb-4 relative flex items-center">   
-          <Navigation className="absolute left-3 text-black fill-gray-800" size={20} />
-              <input
-                type="text"
-                name="dropoff"
-                value={rideData.rideData.dropoff}
-                disabled={true}
-                className="w-full p-2 pl-10 pr-8 bg-neutral-200 border border-gray-300 rounded-lg focus:bg-gray-100 focus:border-transparent"
-                placeholder="Dropoff Location..."
-                required
-              />
-            </div>
-            <div className="space-y-2 flex flex-row justify-items-start gap-2">
-      {/* Day Selection Dropdown */}
-      <div className="relative items-center">
-        <Calendar1 className="absolute left-3 top-1/2 transform -translate-y-1/2 text-black" size={20} />
-        <input
-          value={rideData.rideData.day}
-          disabled={true}
-          className="w-full p-2 pl-10 mr-7 bg-neutral-100 border border-gray-200 rounded-lg transition duration-200 ease-in-out text-gray-700 cursor-pointer appearance-none"
-        >
-        </input>
-      </div>
+        {/* Pickup Address */}
+        <div className="relative">
+          <MapPin className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-700" size={20} />
+          <span className="block w-full p-3 pl-10 bg-gray-100 border border-gray-300 rounded-lg text-gray-800">
+            {rideData.pickupAddress}
+          </span>
+        </div>
 
-      {/* Timing Selection Dropdown */}
-      <div className="relative items-center">
-        <Clock10 className="absolute left-3 top-2/5 transform -translate-y-1/2 text-black" size={20} />
-        <input
-          name="timing"
-          value={rideData.rideData.timing}
-          disabled={true}
-          required
-          className="w-full p-2 pl-10 mr-5 bg-neutral-100 border border-gray-200 rounded-lg transition duration-200 ease-in-out text-gray-700 cursor-pointer appearance-none"
-        >
-        </input>
-      </div>
-    </div>
+        {/* Drop-Off Address */}
+        <div className="relative">
+          <Navigation className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-700 fill-black" size={20} />
+          <span className="block w-full p-3 pl-10 bg-gray-100 border border-gray-300 rounded-lg text-gray-800">
+            {rideData.dropOffAddress}
+          </span>
+        </div>
 
-    <div className="mb-4 mt-2 relative flex items-center gap-2">   
-          <Wallet className="absolute left-3 fill-amber-500 text-black" size={22} />
-          <p className="absolute pl-11 text-black">Fare</p>
-              <input
-                type="text"
-                name="pickup"
-                // value={rideData.rideData.fare}
-                value="₹1234"
-                disabled={true}
-                className="w-full p-2 pl-20 pr-8 font-semibold border border-gray-400 bg-neutral-100 rounded-lg focus:bg-gray-100 focus:border-transparent"
-                placeholder="Pickup Location..."
-                required
-              />
-            </div>
+        {/* Ride Info - Day, Distance, Duration */}
+        <div className="grid grid-cols-3 gap-3">
+          <div className="relative  p-3 rounded-lg border bg-amber-50 border-amber-500 text-center">
+            <Calendar1 className="text-gray-700 mx-auto mb-1" size={20} />
+            <p className="text-xs text-gray-600">Timings</p>
+            <p className="font-semibold text-black">{rideData.day}, {rideData.timing}</p>
+          </div>
 
-            <div className="relative flex items-center">
-  <BadgeIndianRupee className="absolute left-2.5 top-1/2 transform fill-emerald-500 -translate-y-1/2 text-white" size={28} />
-  
-  <select
-    value={paymentMode} // Ensure it reflects the selected option
-    onChange={(e) => setPaymentMode(e.target.value)} // Fix function to set state
-    className="w-full p-2 pl-13 pr-8 bg-neutral-100 font-semibold border border-gray-200 rounded-lg transition duration-200 ease-in-out text-gray-700 cursor-pointer appearance-none"
-  >
-    <option value="Cash">Pay By Cash</option>
-    <option value="Digital Payment">Digital Payment</option>
-  </select>
-  
-  <span className="absolute right-3 top-1/2 transform -translate-y-1/2 pointer-events-none text-gray-800">
-    ▼
-  </span>
+          <div className="relative p-3 rounded-lg border bg-amber-50 border-amber-500 text-center">
+            <Milestone className="text-gray-700 mx-auto mb-1" size={20} />
+            <p className="text-xs text-gray-600">Distance</p>
+            <p className="font-semibold text-black">{rideData.distance}</p>
+          </div>
+
+          <div className="relative p-3 rounded-lg border bg-amber-50 border-amber-500 text-center">
+            <ClockIcon className="text-gray-700 mx-auto mb-1" size={20} />
+            <p className="text-xs text-gray-600">Duration</p>
+            <p className="font-semibold text-black">{rideData.duration}</p>
+          </div>
+        </div>
+
+        {/* Fare Amount */}
+
+        <div className="relative">
+  <p className="text-gray-700 font-medium mb-1">Total Fare</p>
+  <div className="relative">
+    <Wallet className="absolute left-3 top-1/2 -translate-y-1/2 text-orange-500 " size={22} />
+    <p className="w-full p-3 pl-12 bg-gray-100 border border-gray-300 rounded-lg text-gray-800">
+      {rideData.fare}
+    </p>
+  </div>
 </div>
 
-          <p className="text-sm mb-3 font-medium">Selected Ride:</p>
-          <RideOptions
-            selectedOption={rideData.rideData.selectedRide}
-          />
 
-          <button
-            className="w-full py-3 bg-gray-700 text-white rounded-lg font-bold"
-            onSubmit={handleSubmit}
-            disabled={loading}
-          >
+        {/* Payment Mode Selection */}
+        <div className="relative">
+  <p className="text-gray-700 font-medium mb-1">Payment Method</p>
+  <div className="relative">
+    <BadgeIndianRupee className="absolute left-3 top-1/2 -translate-y-1/2 text-emerald-500" size={22} />
+    <select
+      value={paymentMode}
+      onChange={(e) => setPaymentMode(e.target.value)}
+      className="w-full p-3 pl-12 bg-gray-100 border border-gray-300 rounded-lg text-gray-700 appearance-none cursor-pointer"
+    >
+      <option value="Cash">Pay By Cash</option>
+      <option value="Digital Payment">Digital Payment</option>
+    </select>
+  </div>
+</div>
 
-            {loading ? "Processing..." : "Book Now"}
-          </button>
+
+        {/* Selected Ride */}
+        <div>
+          <p className="text-sm font-medium text-gray-600">Selected Ride:</p>
+          <RideOptions selectedOption={rideData.selectedRide} />
         </div>
-        </form>
-        </div>
+
+        {/* Book Now Button */}
+        <button
+          className="w-full py-3 bg-black text-white rounded-lg font-bold hover:bg-gray-800 transition duration-200"
+          type="submit"
+          disabled={loading}
+        >
+          {loading ? "Processing..." : "Book Now"}
+        </button>
+      </form>
+    </div>
   );
 };
 

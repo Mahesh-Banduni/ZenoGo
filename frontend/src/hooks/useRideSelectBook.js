@@ -6,23 +6,28 @@ const useRideSelectRide = () => {
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
-    pickup: "",
-    dropoff: "",
+    pickupAddress: "",
+    pickupLat: "",
+    pickupLng: "",
+    dropOffAddress: "",
+    dropOffLat: "",
+    dropOffLng: "",
     day: "Today",
     timing: "",
-    selectedRide: "",
+    selectedRide: "Bike",
     fare: "",
-    distance: ""
+    distance: "",
+    duration: "",
+    polyline: "",
   });
 
   const [locationResults, setLocationResults] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [status, setStatus] = useState({ type: "", message: "" });
   const [showDropdown, setShowDropdown] = useState(false);
 
   // Select a ride option
-  const handleSelectRide = (rideType) => {
-    setFormData((prev) => ({ ...prev, selectedRide: rideType }));
+  const handleSelectRide = (value) => {
+    setFormData((prev) => ({ ...prev, selectedRide: value }));
   };
 
   // Handle input field change
@@ -30,7 +35,7 @@ const useRideSelectRide = () => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
 
-    if (name === "pickup" || name === "dropoff") {
+    if (name === "pickupAddress" || name === "dropOffAddress") {
       debouncedSearchLocation(value);
       setShowDropdown(true);
     }
@@ -48,21 +53,64 @@ const useRideSelectRide = () => {
     setFormData((prev) => ({ ...prev, [field]: address }));
     setShowDropdown(false);
   };
-  
 
   // Handle form submission
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-  
     setLoading(true);
-    
-    setTimeout(() => { // Ensure state update before navigation
-      navigate("/book-ride", { state: { rideData: formData } });
-      console.log("Submitting Form:", formData);
+
+    try {
+      const updatedFormData = await calculateFare(
+        formData.pickupLat,
+        formData.pickupLng,
+        formData.dropOffLat,
+        formData.dropOffLng,
+        formData.selectedRide
+      );
+
+      console.log("Updated Form Data:", updatedFormData);
+
+      navigate("/book-ride", { state: { rideData: updatedFormData } });
+    } catch (error) {
+      console.error("Error submitting form:", error);
+    } finally {
       setLoading(false);
-    }, 100);
+    }
   };
-  
+
+  // Calculate fare and return updated data
+  const calculateFare = async (pickupLat, pickupLng, dropOffLat, dropOffLng, vehicleType) => {
+    try {
+      const response = await axiosInstance.post("/rides/calculate-fare", {
+        pickupLat,
+        pickupLng,
+        dropOffLat,
+        dropOffLng,
+        vehicleType,
+      });
+
+      if (response?.data?.success) {
+        const { totalFare, distanceInKm, durationInHrMin, polyline } = response.data.data;
+
+        return new Promise((resolve) => {
+          setFormData((prev) => {
+            const updatedData = {
+              ...prev,
+              fare: totalFare,
+              distance: distanceInKm,
+              duration: durationInHrMin,
+              polyline: polyline,
+            };
+            resolve(updatedData);
+            return updatedData;
+          });
+        });
+      }
+    } catch (error) {
+      console.error("Error calculating fare:", error);
+      return formData; // Return existing state if an error occurs
+    }
+  };
 
   // Fetch location search results
   const searchLocation = async (input) => {
@@ -86,7 +134,7 @@ const useRideSelectRide = () => {
     };
   };
 
-  const debouncedSearchLocation = useCallback(debounce(searchLocation, 500), []);
+  const debouncedSearchLocation = useCallback(debounce(searchLocation, 500), [searchLocation]);
 
   return {
     formData,
@@ -96,9 +144,9 @@ const useRideSelectRide = () => {
     handleSelectLocation,
     handleSelectRide,
     loading,
-    status,
     locationResults,
-    showDropdown
+    showDropdown,
+    calculateFare,
   };
 };
 

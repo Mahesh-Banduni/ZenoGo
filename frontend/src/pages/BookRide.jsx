@@ -32,7 +32,7 @@ const BookRide = () => {
   ) : (
     <div className="min-h-screen bg-gray-50 p-4 flex">
       <RideDetails rideData={rideData} />
-      <OlaMap />
+      <OlaMap rideData={rideData}/>
     </div>
   );
 };

@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import RideOptions from './RideOptions';
 import useRideSelectBook from '../../hooks/useRideSelectBook';
-import { MapPin, Navigation, Cross, Calendar1, Clock10, Locate } from 'lucide-react';
+import { MapPin, Navigation, X, Calendar, Clock, Locate } from 'lucide-react';
 
 const FillRideDetails = () => {
   const navigate = useNavigate();
@@ -19,7 +19,7 @@ const FillRideDetails = () => {
       const hour = i % 12 === 0 ? 12 : i % 12;
       const period = i < 12 ? "AM" : "PM";
       return (
-        <option key={i} value={`${hour} ${period}`} className="bg-gray-50 focus:bg-gray-100">
+        <option key={i} value={`${hour} ${period}`} className="bg-white text-gray-700">
           {hour}:00 {period}
         </option>
       );
@@ -27,75 +27,30 @@ const FillRideDetails = () => {
   };
 
   return (
-    <div className="max-w-4xl mx-auto space-y-8">
-      <form className="bg-white rounded-lg w-full max-w-md p-6 shadow-lg relative" onSubmit={handleSubmit}>
-        <center><h1 className='text-xl font-bold mb-6'>Add Ride Details</h1></center>
+    <div className="max-w-3xl mx-auto px-4 py-8">
+      <form className="bg-white shadow-xl rounded-xl p-6 space-y-6" onSubmit={handleSubmit}>
+        <h1 className="text-2xl font-semibold text-center text-gray-900">Add Ride Details</h1>
         
         {/* Pickup Input */}
-        <div className="mb-4 relative">
-          <div className='flex items-center'>
-            <MapPin className="absolute left-3 top-3 text-black" size={20} />
-            <input
-              type="text"
-              name="pickup"
-              value={formData.pickup}
-              onChange={(e) => { handleChange(e); setDropdownType('pickup'); }}
-              className="w-full p-2 pl-10 pr-8 rounded-lg bg-neutral-200 border border-gray-300"
-              placeholder="Pickup Location..."
-              required
-            />
-
-            {/* Show Locate icon when input is empty */}
-            {formData.pickup === "" && (
-              <Locate className="absolute right-3 top-3 text-black" size={20} />
-            )}
-
-            {/* Show Cross icon when input has text */}
-            {formData.pickup && (
-              <Cross 
-                className="absolute right-3 cursor-pointer rotate-45 bg-gray-800 rounded-full fill-white" 
-                size={16} 
-                onClick={() => clearInput("pickup")} 
-              />
-            )}
-            </div>
-
-            {/* Dropdown for location suggestions */}
-            {showDropdown && dropdownType === 'pickup' && locationResults.length > 0 && (
-              <ul className="absolute w-full bg-white  border rounded-lg shadow-lg mt-1 z-50 max-h-60 overflow-y-auto">
-                {locationResults.map((location, index) => (
-                  <li 
-                    key={index} 
-                    className="p-2 hover:bg-gray-100 cursor-pointer" 
-                    onClick={() => handleSelectLocation('pickup', location.address)}
-                  >
-                    {location.address}
-                  </li>
-                ))}
-              </ul>
-            )}
-          </div>
-
-
-        {/* Dropoff Input */}
-        <div className="mb-4 relative">
-          <div className='flex items-center'>
-          <Navigation className="absolute left-3 top-3 text-black fill-black" size={20} />
+        <div className="relative">
+          <MapPin className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-600" size={20} />
           <input
             type="text"
-            name="dropoff"
-            value={formData.dropoff}
-            onChange={(e) => { handleChange(e); setDropdownType('dropoff'); }}
-            className="w-full p-2 pl-10 rounded-lg bg-neutral-200 pr-8 border border-gray-300"
-            placeholder="Dropoff Location..."
+            name="pickupAddress"
+            value={formData.pickupAddress}
+            onChange={(e) => { handleChange(e); setDropdownType('pickup'); }}
+            className="w-full py-3 pl-12 pr-10 rounded-lg bg-gray-100 border border-gray-300"
+            placeholder="Pickup Location..."
             required
           />
-          {formData.dropoff && <Cross className="absolute right-3 cursor-pointer rotate-45 bg-gray-800 rounded-full fill-white" size={16} onClick={() => clearInput("dropoff")} />}
-            </div>
-          {showDropdown && dropdownType === 'dropoff' && locationResults.length > 0 && (
-            <ul className="absolute w-full bg-white border rounded-lg shadow-lg mt-1 z-50">
+          {formData.pickupAddress && (
+            <X className="absolute right-4 top-1/2 transform -translate-y-1/2 cursor-pointer text-gray-500" size={18} onClick={() => clearInput("pickupAddress")} />
+          )}
+          {showDropdown && dropdownType === 'pickup' && locationResults.length > 0 && (
+            <ul className="absolute w-full bg-white border rounded-lg shadow-md mt-2 max-h-60 overflow-y-auto z-50">
               {locationResults.map((location, index) => (
-                <li key={index} className="p-2 hover:bg-gray-200 cursor-pointer" onClick={() => handleSelectLocation('dropoff', location.address)}>
+                <li key={index} className="p-3 hover:bg-gray-100 cursor-pointer" 
+                    onClick={() => handleSelectLocation('pickupAddress', location.address)}>
                   {location.address}
                 </li>
               ))}
@@ -103,52 +58,72 @@ const FillRideDetails = () => {
           )}
         </div>
 
-        <div>
-        <div className="space-y-2 flex flex-row justify-items-start gap-2">
-        <div className="relative items-center">
-        <Calendar1 className="absolute left-3 top-1/2 transform -translate-y-1/2 text-black" size={20} />
-        <select
-          name="day"
-          value={formData.day}
-          onChange={handleChange}
-          className="w-full p-2 pl-10 mr-7 bg-neutral-100 border border-gray-200 rounded-lg transition duration-200 ease-in-out text-gray-700 cursor-pointer appearance-none"
-        >
-          <option value="Today">Today</option>
-          <option value="Tomorrow">Tomorrow</option>
-        </select>
-        <span className="absolute right-3 top-1/2 transform -translate-y-1/2 pointer-events-none text-gray-800">▼</span>
-      </div>
+        {/* Dropoff Input */}
+        <div className="relative">
+          <Navigation className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-600 fill-black" size={20} />
+          <input
+            type="text"
+            name="dropOffAddress"
+            value={formData.dropOffAddress}
+            onChange={(e) => { handleChange(e); setDropdownType('dropoff'); }}
+            className="w-full py-3 pl-12 pr-10 rounded-lg bg-gray-100 border border-gray-300"
+            placeholder="Dropoff Location..."
+            required
+          />
+          {formData.dropOffAddress && (
+            <X className="absolute right-4 top-1/2 transform -translate-y-1/2 cursor-pointer text-gray-500" size={18} onClick={() => clearInput("dropOffAddress")} />
+          )}
+          {showDropdown && dropdownType === 'dropoff' && locationResults.length > 0 && (
+            <ul className="absolute w-full bg-white border rounded-lg shadow-md mt-2 max-h-60 overflow-y-auto z-50">
+              {locationResults.map((location, index) => (
+                <li key={index} className="p-3 hover:bg-gray-100 cursor-pointer" 
+                    onClick={() => handleSelectLocation('dropOffAddress', location.address)}>
+                  {location.address}
+                </li>
+              ))}
+            </ul>
+          )}
+        </div>
 
-      {/* Timing Selection Dropdown */}
-      <div className="relative items-center">
-        <Clock10 className="absolute left-3 top-2/5 transform -translate-y-1/2 text-black" size={20} />
-        <select
-          name="timing"
-          value={formData.timing}
-          onChange={handleChange}
-          required
-          className="w-full p-2 pl-10 mr-5 bg-neutral-100 border border-gray-200 rounded-lg transition duration-200 ease-in-out text-gray-700 cursor-pointer appearance-none"
-        >
-          <option value="" disabled className="text-gray-400 bg-gray-50 text-wrap">
-            Select Time...
-          </option>
-          {generateTimings()}
-        </select>
-        <span className="absolute right-3 top-2/5 transform -translate-y-1/2 pointer-events-none text-gray-800">▼</span>
-      </div>
-      
-    </div>
+        {/* Date & Time */}
+        <div className="grid grid-cols-2 gap-4">
+          <div className="relative">
+            <Calendar className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-600" size={20} />
+            <select
+              name="day"
+              value={formData.day}
+              onChange={handleChange}
+              className="w-full py-3 pl-12 pr-4 bg-gray-100 border border-gray-300 rounded-lg cursor-pointer"
+            >
+              <option value="Today">Today</option>
+              <option value="Tomorrow">Tomorrow</option>
+            </select>
+          </div>
+          <div className="relative">
+            <Clock className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-600" size={20} />
+            <select
+              name="timing"
+              value={formData.timing}
+              onChange={handleChange}
+              required
+              className="w-full py-3 pl-12 pr-4 bg-gray-100 border border-gray-300 rounded-lg cursor-pointer"
+            >
+              <option value="" disabled>Select Time...</option>
+              {generateTimings()}
+            </select>
+          </div>
+        </div>
 
         {/* Ride Options */}
-        <p className="text-sm mb-3 mt-2 font-medium">Available Rides:</p>
-        <RideOptions onSelect={handleSelectRide} selectedOption={formData.selectedRide} />
+        <div>
+          <p className="text-sm font-medium text-gray-700 mb-2">Available Rides:</p>
+          <RideOptions onSelect={handleSelectRide} value={formData.selectedRide || 'Bike'} />
         </div>
 
         {/* Submit Button */}
-        <button className="w-full py-3 mt-4 bg-gray-700 text-white rounded-lg font-bold" type="submit" disabled={loading}>
+        <button className="w-full py-3 bg-black text-white font-semibold rounded-lg hover:bg-gray-900 transition duration-200" type="submit" disabled={loading}>
           {loading ? "Processing..." : "Continue Booking"}
         </button>
-        
       </form>
     </div>
   );

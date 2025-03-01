@@ -9,11 +9,13 @@ const useRegister = () => {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
-    password: ''
+    password: '',
+    role: 'passenger'
   });
   
   const [status, setStatus] = useState({ type: '', message: '' });
   const [loading, setLoading] = useState(false);
+  const [role, setRole]= useState("passenger");
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -62,6 +64,7 @@ const useRegister = () => {
     }
 
     try {
+      console.log(formData);
       const response = await axiosInstance.post('users/signup', formData); // Changed userData to formData
       
       if (response?.data?.success === true) {

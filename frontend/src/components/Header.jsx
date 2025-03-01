@@ -7,9 +7,12 @@ import { logo } from '../utils/icons';
 import { toast, ToastContainer } from 'react-toastify';
 import useProfile from '../hooks/useProfile';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useSelector } from 'react-redux';
 
 const Header = () => {
   const token = localStorage.getItem("token");
+  const profile = useSelector(state => state.profile); 
+  const {status, setStatus, fetchProfile, updateProfile } = useProfile();
   const { checkRole } = useProfile();
   const [role, setRole] = useState(null);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -25,6 +28,10 @@ const Header = () => {
     const handleScroll = () => setIsScrolled(window.scrollY > 20);
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  useEffect(() => {
+    fetchProfile(); // Fetch user data when component mounts
   }, []);
 
   useEffect(() => {
@@ -150,7 +157,7 @@ const Header = () => {
                   <div className="bg-gradient-to-r from-orange-400 to-amber-500 p-1 rounded-full">
                     <CgProfile size={18} className="text-white" />
                   </div>
-                  <span className="text-sm font-medium text-gray-800">Mahesh</span>
+                  <span className="text-sm font-medium text-gray-800">{profile.name}</span>
                   <ChevronDown size={16} className={`text-gray-600 transition-transform duration-200 ${isProfileDropdownOpen ? 'rotate-180' : ''}`} />
                 </button>
                 <AnimatePresence>
@@ -163,8 +170,8 @@ const Header = () => {
                       className="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-xl border border-gray-100 overflow-hidden z-50"
                     >
                       <div className="px-4 py-3 bg-gradient-to-r from-amber-50 to-amber-100 border-b border-gray-100">
-                        <p className="text-sm font-medium text-gray-900">Mahesh</p>
-                        <p className="text-xs text-gray-500 truncate">user@example.com</p>
+                        <p className="text-sm font-medium text-gray-900">{profile.name}</p>
+                        <p className="text-xs text-gray-500 truncate">{profile.email}</p>
                       </div>
                       <NavLink 
                         to="/profile" 

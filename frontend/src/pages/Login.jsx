@@ -35,7 +35,7 @@ const Login = () => {
             name="email"
             value={formData.email}
             onChange={handleChange}
-            className="w-full p-3 bg-gray-50 text-gray-900 border border-gray-300 rounded-lg focus:border-amber-500 focus:bg-white focus:border-2"
+            className="w-full p-3 bg-gray-50 text-gray-900 border border-gray-300 rounded-lg focus:bg-white"
             placeholder="Enter your email"
           />
         </div>
@@ -47,13 +47,14 @@ const Login = () => {
             name="password"
             value={formData.password}
             onChange={handleChange}
-            className="w-full p-3 bg-gray-50 text-gray-900 border border-gray-300 rounded-lg focus:border-amber-500 focus:bg-white focus:border-2"
+            className="w-full p-3 bg-gray-50 text-gray-900 border border-gray-300 rounded-lg focus:bg-white"
             placeholder="Enter your password"
           />
         </div>
 
         <button
           type="submit"
+          onClick={handleSubmit}
           disabled={loading}
           className={`w-full mt-6 py-3 rounded-md font-bold text-white transition ${
             loading

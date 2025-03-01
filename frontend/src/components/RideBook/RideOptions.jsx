@@ -15,7 +15,7 @@ const RideOptions = ({ selectedOption }) => {
 
   return (
     <div className="flex flex-col gap-4">
-      <div className="p-3 rounded-lg border border-amber-500 bg-amber-50 flex items-center justify-start">
+      <div className="p-2 rounded-lg border border-amber-500 bg-amber-50 flex items-center justify-start">
         <img src={selectedRide.image} alt={selectedRide.name} className="h-8 w-12 mr-3" />
         <div className="flex flex-col items-start text-left w-full">
           <h3 className="font-bold">{selectedRide.name}</h3>

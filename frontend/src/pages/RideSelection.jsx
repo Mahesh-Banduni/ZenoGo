@@ -30,6 +30,7 @@ const RideSelection = () => {
       <FillRideDetails />
       <OlaMap />
     </div>
+    
   );
 };
 

@@ -42,7 +42,7 @@ const MobileRideSelection = () => {
       </div>
 
       {/* Bottom Sheet UI */}
-      <div className="absolute bottom-0 left-0 right-0 pb-10 mb-5 mt-30">
+      <div className="absolute bottom-0 left-0 right-0 pb-10 mb-16 mt-20">
         <form className="bg-white rounded-t-xl shadow-lg" onSubmit={handleSubmit}>
           {/* Drag handle */}
           <div className="flex justify-center py-2 cursor-pointer gap-2" onClick={toggleExpanded}>
@@ -62,22 +62,28 @@ const MobileRideSelection = () => {
                 <MapPin className="absolute left-3 top-3 text-black" size={20} />
                 <input
                   type="text"
-                  name="pickup"
-                  value={formData.pickup}
+                  name="pickupAddress"
+                  value={formData.pickupAddress}
                   onChange={(e) => { handleChange(e); setDropdownType('pickup'); }}
-                  onClick={toggleExpanded}
-                  className="w-full p-2 pl-10 pr-8 text-sm rounded-lg bg-neutral-200 border border-gray-300"
+                  onClick={()=>setIsExpanded(true)}
+                  className="w-full p-2 pl-10 pr-8 text-sm rounded-lg bg-gray-100 border border-gray-300"
                   placeholder="Pickup Location..."
                   required
                 />
-                {!formData.pickup && <Locate className="absolute right-3 top-3 text-black" size={20} />}
-                {formData.pickup && <Cross className="absolute right-3 cursor-pointer rotate-45 bg-gray-800 rounded-full fill-white" size={16} onClick={() => clearInput("pickup")} />}
+                {!formData.pickupAddress && <Locate className="absolute right-3 top-3 text-black" size={20} />}
+                {formData.pickupAddress && <Cross className="absolute right-3 cursor-pointer rotate-45 bg-gray-800 rounded-full fill-white" size={16} onClick={() => clearInput("pickupAddress")} />}
               </div>
               {showDropdown && dropdownType === 'pickup' && locationResults.length > 0 && (
                 <ul className="absolute w-full bg-white border rounded-lg shadow-lg mt-1 z-50 max-h-60 overflow-y-auto  text-sm">
                   {locationResults.map((location, index) => (
-                    <li key={index} className="p-2 hover:bg-gray-100 cursor-pointer text-sm" onClick={() => handleSelectLocation('pickup', location.address)}>
-                      {location.address}
+                    <li key={index} className="p-2 hover:bg-gray-100 cursor-pointer text-sm" 
+                    onClick={() => {
+                      handleSelectLocation('pickupAddress', location.address);
+                      handleSelectLocation('pickupLat', location.lat);
+                      handleSelectLocation('pickupLng', location.lng);
+                  }}
+                  >
+                    {location.address}
                     </li>
                   ))}
                 </ul>
@@ -90,19 +96,26 @@ const MobileRideSelection = () => {
                 <Navigation className="absolute left-3 top-3 text-black fill-black" size={20} />
                 <input
                   type="text"
-                  name="dropoff"
-                  value={formData.dropoff}
+                  name="dropOffAddress"
+                  value={formData.dropOffAddress}
                   onChange={(e) => { handleChange(e); setDropdownType('dropoff'); }}
-                  className="w-full p-2 pl-10 rounded-lg text-sm pr-8 bg-neutral-200 border border-gray-300"
+                  onClick={()=>setIsExpanded(true)}
+                  className="w-full p-2 pl-10 rounded-lg text-sm pr-8 bg-gray-100 border border-gray-300"
                   placeholder="Dropoff Location..."
                   required
                 />
-                {formData.dropoff && <Cross className="absolute right-3 cursor-pointer rotate-45 bg-gray-800 rounded-full fill-white" size={16} onClick={() => clearInput("dropoff")} />}
+                {formData.dropOffAddress && <Cross className="absolute right-3 cursor-pointer rotate-45 bg-gray-800 rounded-full fill-white" size={16} onClick={() => clearInput("dropOffAddress")} />}
               </div>
               {showDropdown && dropdownType === 'dropoff' && locationResults.length > 0 && (
                 <ul className="absolute w-full bg-white border rounded-lg shadow-lg mt-1 z-50">
                   {locationResults.map((location, index) => (
-                    <li key={index} className="p-2 hover:bg-gray-100 cursor-pointer text-sm" onClick={() => handleSelectLocation('dropoff', location.address)}>
+                    <li key={index} className="p-2 hover:bg-gray-100 cursor-pointer text-sm" 
+                    onClick={() => {
+                      handleSelectLocation('dropOffAddress', location.address);
+                       handleSelectLocation('dropOffLat', location.lat);
+                        handleSelectLocation('dropOffLng', location.lng)
+                      }}
+                      >
                       {location.address}
                     </li>
                   ))}
@@ -149,15 +162,17 @@ const MobileRideSelection = () => {
               </div>
 
               {/* Ride Options */}
-              <p className="text-sm mb-3 mt-1 font-medium">Available Rides:</p>
-              <RideOptions onSelect={handleSelectRide} selectedOption={formData.selectedRide} />
+              <div>
+               <p className="text-sm mb-3 mt-2 font-medium">Available Rides:</p>
+               <RideOptions onSelect={handleSelectRide} value={formData.selectedRide} required />
+              </div>
             </div>
           )}
 
           {/* Book Ride Button */}
-          <div className="px-4 pb-6 pt-2">
+          <div className="px-4 pb-4 pt-1">
             {/* Submit Button */}
-            <button className="w-full py-3 bg-gray-700 text-white rounded-lg font-bold" type="submit" disabled={loading}>
+            <button className="w-full py-3 bg-black text-white rounded-lg font-bold hover:bg-gray-800 transition duration-200" type="submit" disabled={loading}>
           {loading ? "Processing..." : "Continue Booking"}
         </button>
           </div>

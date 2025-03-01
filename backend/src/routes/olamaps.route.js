@@ -29,11 +29,19 @@ router.get("/search-location", olamapsController.searchLocation);
  *     tags: [OlaMaps]
  *     parameters:
  *       - in: query
- *         name: start
+ *         name: pickupLat
  *         schema:
  *           type: string
  *       - in: query
- *         name: end
+ *         name: pickupLng
+ *         schema:
+ *           type: string
+ *       - in: query
+ *         name: dropOffLat
+ *         schema:
+ *           type: string
+ *       - in: query
+ *         name: dropOffLng
  *         schema:
  *           type: string
  *     responses:
