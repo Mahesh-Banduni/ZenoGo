@@ -50,7 +50,10 @@ const FillRideDetails = () => {
             <ul className="absolute w-full bg-white border rounded-lg shadow-md mt-2 max-h-60 overflow-y-auto z-50">
               {locationResults.map((location, index) => (
                 <li key={index} className="p-3 hover:bg-gray-100 cursor-pointer" 
-                    onClick={() => handleSelectLocation('pickupAddress', location.address)}>
+                    onClick={() => {handleSelectLocation('pickupAddress', location.address);
+                      handleSelectLocation('pickupLat', location.lat);
+                      handleSelectLocation('pickupLng', location.lng);
+                    }}>
                   {location.address}
                 </li>
               ))}
@@ -77,7 +80,10 @@ const FillRideDetails = () => {
             <ul className="absolute w-full bg-white border rounded-lg shadow-md mt-2 max-h-60 overflow-y-auto z-50">
               {locationResults.map((location, index) => (
                 <li key={index} className="p-3 hover:bg-gray-100 cursor-pointer" 
-                    onClick={() => handleSelectLocation('dropOffAddress', location.address)}>
+                    onClick={() => {handleSelectLocation('dropOffAddress', location.address);
+                      handleSelectLocation('dropOffLat', location.lat);
+                      handleSelectLocation('dropOffLng', location.lng);
+                    }}>
                   {location.address}
                 </li>
               ))}

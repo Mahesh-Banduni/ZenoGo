@@ -15,11 +15,20 @@ const calculateFare = async(req, res, next)=>{
 
 const createRide = async(req, res, next)=>{
     try {
-        const address= await rideService.createRide(req.body);
+        if(req.body.paymentMethod=='Cash'){
+        const rideDetails= await rideService.createRide(req.user.id, req.body);
         res.status(200).json({
             success: true,
-            data: address,
+            data: rideDetails,
           });
+        }
+        else if(req.body.paymentMethod=='Digital Payment'){
+            const {ride, razorpayOrder}= await rideService.createRide(req.user.id, req.body);
+            res.status(200).json({
+                success: true,
+                data: {ride, razorpayOrder},
+              });
+            }
     } catch (error) {
         next(error);
     }

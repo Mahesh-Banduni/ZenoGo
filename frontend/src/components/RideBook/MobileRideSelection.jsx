@@ -1,16 +1,100 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { BadgeIndianRupee,Milestone, ClockIcon, WalletCards, Wallet, MapPin, Locate, Clock10, ChevronUp, ChevronDown, Calendar1, Navigation, Cross } from 'lucide-react';
 import OlaMap from '../OlaMap';
 import RideOptions from './RideOptions';
 import useRideSelectBook from '../../hooks/useRideSelectBook';
+import useProfile from '../../hooks/useProfile';
+import { useSelector } from 'react-redux';
+import PaymentButton from './PaymentButton';
+import { toast } from 'react-toastify';
 
 const MobileRideSelection = ({rideData}) => {
-  console.log(rideData);
   const navigate = useNavigate();
-  const [paymentMode, setPaymentMode] = useState("Cash");
-  const { formData, handleChange, handleSubmit, loading, status, clearInput } = useRideSelectBook();
-  const [day, setDay] = useState("Today"); // Default to Today
+  const [paymentMethod, setPaymentMethod] = useState("Cash");
+  const { handleSubmit, loading, clearAllValues, checkAndNavigate } = useRideSelectBook();
+  const profile = useSelector((state) => state.profile);
+  const { fetchProfile } = useProfile();
+
+  useEffect(() => {
+      fetchProfile(); // Fetch user data when component mounts
+      checkAndNavigate({rideData});
+    }, []);
+
+    const handleRideSuccess = () => {
+      toast.success("Ride successfully booked !", {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        style: {
+          background: "#FAD767",
+          color: "#3C423A",
+          border: "2px solid white",
+        },
+        progressStyle: {
+          background: "white",
+        },
+      });
+      clearAllValues();
+      setTimeout(() => {
+        navigate("/all-rides");
+      }, 1500);
+    };
+
+  const handlePaymentSuccess = (response) => {
+    toast.success("Payment successful!", {
+      position: "top-center",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      style: {
+        background: "#FAD767",
+        color: "#3C423A",
+        border: "2px solid white",
+      },
+      progressStyle: {
+        background: "white",
+      },
+    });
+    handleRideSuccess();
+    clearAllValues();
+    setTimeout(() => {
+      navigate("/all-rides", {
+        state: {
+          orderDetails: response,
+          paymentId: response.razorpay_payment_id,
+        },
+      });
+    }, 1500);
+  };
+
+  const handlePaymentError = (error) => {
+    toast.error("Payment failed. Please try after some time...", {
+      position: "top-center",
+      autoClose: 3000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      style: {
+        background: "#FAD767",
+        color: "#3C423A",
+        border: "2px solid white",
+      },
+      progressStyle: {
+        background: "white",
+      },
+    });
+    clearAllValues();
+    setTimeout(() => {
+      navigate("/select-ride");
+    }, 1500);
+  };
   
   const [isExpanded, setIsExpanded] = useState(true);
 
@@ -26,7 +110,7 @@ const MobileRideSelection = ({rideData}) => {
       </div>
 
       {/* Bottom sheet UI */}
-      <div className="absolute bottom-0 left-0 right-0 pb-10 mb-16 mt-20">
+      <div className={`absolute bottom-0 left-0 right-0 pb-2 mb-6`}>
         <div className="bg-white rounded-t-xl shadow-lg">
           {/* Drag handle */}
           <div 
@@ -105,8 +189,8 @@ const MobileRideSelection = ({rideData}) => {
   <div className="relative">
     <BadgeIndianRupee className="absolute left-3 top-1/2 -translate-y-1/2 text-emerald-500" size={22} />
     <select
-      value={paymentMode}
-      onChange={(e) => setPaymentMode(e.target.value)}
+      value={paymentMethod}
+      onChange={(e) => setPaymentMethod(e.target.value)}
       className="w-full text-sm p-2.5 pl-12 bg-gray-100 border border-gray-300 rounded-lg text-gray-700 appearance-none cursor-pointer"
     >
       <option value="Cash">Pay By Cash</option>
@@ -124,16 +208,17 @@ const MobileRideSelection = ({rideData}) => {
             </div>
           )}
 
-          {/* Book ride button - always visible */}
-          <div className="px-4 pb-4">
-            <button
-              className="w-full py-3 bg-black text-white rounded-lg font-bold hover:bg-gray-800 transition duration-200"
-              onClick={handleSubmit}
-              disabled={loading}
-            >
-              {loading ? "Processing..." : "Book Now"}
-            </button>
-          </div>
+            <div className="mb-2 pb-1">
+              <PaymentButton
+                disabled={loading}
+                rideData={rideData}
+                paymentMethod={paymentMethod}
+                passengerDetails={profile}
+                onRideSuccess={handleRideSuccess}
+                onPaymentSuccess={handlePaymentSuccess}
+                onPaymentError={handlePaymentError}
+              />
+            </div>
         </div>
       </div>
     </div>

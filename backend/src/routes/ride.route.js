@@ -105,9 +105,9 @@ router.post("/calculate-fare", rideController.calculateFare);
  *                 type: string
  *               dropOffLng:
  *                 type: string
- *               distanceInKm:
+ *               distance:
  *                 type: string
- *               durationInHrMin:
+ *               duration:
  *                 type: string
  *               fare:
  *                 type: string

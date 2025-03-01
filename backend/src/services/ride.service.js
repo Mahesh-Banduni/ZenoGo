@@ -2,6 +2,22 @@ const Ride = require("../models/ride.model");
 const User = require("../models/user.model");
 const { findNearbyDrivers } = require("./driver.service");
 const { getOptimizedRoute } = require("./olamaps.service");
+const crypto= require("crypto");
+const Razorpay = require("razorpay");
+
+// Initialize Razorpay instance
+const razorpay = new Razorpay({
+  key_id: process.env.RAZORPAY_KEY_ID,
+  key_secret: process.env.RAZORPAY_KEY_SECRET,
+});
+
+const generateRideCode = async () => {
+  let id;
+  do {
+      id = Math.floor(10 ** 14 + Math.random() * 9 * 10 ** 14); // Generates a number between 10^14 and 10^15 - 1
+  } while (id % 10 === 0); // Ensures it does not end in zero
+  return id; // Returns the number as a string
+};
 
 const calculateFare = async (rideDetails) => {
     const {pickupLat, pickupLng, dropOffLat, dropOffLng, vehicleType} = rideDetails;
@@ -26,12 +42,27 @@ const createRide = async (userId, rideDetails) => {
     // }
 
     // Create ride request
+    const rideCodePrefix = "ZNG";
+    let rideCode, rideCodeCheck;
+
+    // Generate a unique ride code
+    do {
+        const generatedCode = await generateRideCode();
+        rideCode = rideCodePrefix + generatedCode;
+        rideCodeCheck = await Ride.exists({ rideCode });
+    } while (rideCodeCheck);
+
     const ride = new Ride({
       passengerId: userId,
-      pickupLocation: { address: rideDetails.pickupAddress, lat: rideDetails.pickupLat, lng:rideDetails.pickupLng},
-      dropoffLocation: { address: rideDetails.dropOffAddress, lat: rideDetails.dropOffLat, lng:rideDetails.dropOffLng},
-      distance: rideDetails.distanceInKm,
-      duration: rideDetails.durationInHrMin,
+      rideCode: rideCode,
+      pickupAddress: rideDetails.pickupAddress,
+      pickupLat: rideDetails.pickupLat, 
+      pickupLng:rideDetails.pickupLng,
+      dropOffAddress: rideDetails.dropOffAddress,
+      dropOffLat: rideDetails.dropOffLat, 
+      dropOffLng:rideDetails.dropOffLng,
+      distance: rideDetails.distance,
+      duration: rideDetails.duration,
       fare: rideDetails.fare,
       vehicleType: rideDetails.vehicleType,
       polyline: rideDetails.polyline,
@@ -42,6 +73,29 @@ const createRide = async (userId, rideDetails) => {
     const user = await User.findById(userId);
     user.rides.push(ride._id);
     await user.save();
+
+    if(ride.paymentMethod=='Digital Payment'){
+      // Initiate Razorpay payment
+      const razorpayOrder = await razorpay.orders.create({
+        amount: Math.round(ride.fare * 100), // Ensure integer conversion
+        currency: "INR",
+        receipt: `ORDER_${ride.rideCode}`,
+      });
+      
+
+  // Attach Razorpay ride ID to ride
+  ride.paymentId = razorpayOrder.id;
+  await ride.save();
+
+  return { 
+    ride, 
+    razorpayOrder 
+};
+    }
+
+    return { 
+      ride
+  };
 };
 
 // Verify Razorpay payment
@@ -58,7 +112,7 @@ const verifyPayment = async (razorpay_order_id, razorpay_payment_id, razorpay_si
   const ride = await Ride.findOne({ paymentId: razorpay_order_id });
   if (!ride) throw new NotFoundError("Ride not found");
 
-  ride.paymentStatus = "Paid";
+  ride.paymentStatus = "paid";
   await ride.save();
 
   return { message: "Payment successful", ride };

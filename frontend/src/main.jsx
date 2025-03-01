@@ -17,7 +17,7 @@ const Loader = () => (
 const Home= lazy(()=> import("./pages/Home"))
 const RideSelection = lazy(() => import("./pages/RideSelection"));
 const BookRide = lazy(() => import("./pages/BookRide"));
-//const OlaMap = lazy(() => import("./pages/OlaMap"));
+const AllRides = lazy(() => import("./pages/AllRides"));
 // const Cart = lazy(() => import("./pages/Cart"));
 // const Checkout = lazy(() => import("./pages/Checkout"));
 // const AdminDashboard= lazy(() => import('./pages/AdminDashboard'));
@@ -57,14 +57,14 @@ const routes = createBrowserRouter([
           </Suspense>
         ),
       },
-      // {
-      //   path: "/cart",
-      //   element: (
-      //     <Suspense fallback={<Loader />}>
-      //       <Cart />
-      //     </Suspense>
-      //   ),
-      // },
+      {
+        path: "/all-rides",
+        element: (
+          <Suspense fallback={<Loader />}>
+            <AllRides />
+          </Suspense>
+        ),
+      },
       // {
       //   path: "/checkout",
       //   element: (
