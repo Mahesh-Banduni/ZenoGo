@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
-import MobileRideSelection from '../components/rideSelection/MobileRideSelection';
-import FillRideDetails from '../components/rideSelection/FillRideDetails';
+import MobileRideSelection from '../components/RideSelection/MobileRideSelection';
+import FillRideDetails from '../components/RideSelection/FillRideDetails';
 import OlaMap from '../components/OlaMap';
 import { useLocation } from 'react-router-dom';
 
