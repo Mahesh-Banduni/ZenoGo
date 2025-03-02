@@ -3,8 +3,8 @@ import { useEffect, useState } from 'react';
 import OlaMap from '../components/OlaMap';
 import { useNavigate, useLocation } from "react-router-dom";
 import { ToastContainer } from 'react-toastify';
-import MobileRideBook from '../components/rideBook/MobileRideBook';
-import RideDetails from '../components/rideBook/RideDetails';
+import MobileRideBook from '../components/RideBook/MobileRideBook';
+import RideDetails from '../components/RideBook/RideDetails';
 
 const BookRide = () => {
   const navigate = useNavigate();
