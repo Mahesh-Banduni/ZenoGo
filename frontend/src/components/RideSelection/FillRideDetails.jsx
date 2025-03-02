@@ -1,16 +1,28 @@
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
 import RideOptions from './RideOptions';
-import useRideSelectBook from '../../hooks/useRideSelectBook';
+import useRide from '../../hooks/useRide';
 import { MapPin, Navigation, X, Calendar, Clock, Locate } from 'lucide-react';
 
 const FillRideDetails = () => {
+  const location = useLocation();
   const navigate = useNavigate();
   const { 
     formData, handleChange, handleSubmit, clearInput, loading, locationResults, handleSelectRide,
-    showDropdown, handleSelectLocation 
-  } = useRideSelectBook();
+    showDropdown, handleSelectLocation , setFormData
+  } = useRide();
+
   const [dropdownType, setDropdownType] = useState(null);
+  const rideData = location.state?.rideData || {}; // Extract rideData from navigation
+
+  useEffect(() => {
+    if (Object.keys(rideData).length > 0) {
+      setFormData((prev) => ({
+        ...prev,
+        ...rideData,
+      }));
+    }
+  }, [rideData, setFormData]);
 
   const generateTimings = () => {
     const currentHour = new Date().getHours();

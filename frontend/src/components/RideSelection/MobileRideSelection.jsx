@@ -1,19 +1,30 @@
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { MapPin, Locate, Clock10, ChevronUp, ChevronDown, Calendar1, Navigation, Cross } from 'lucide-react';
 import OlaMap from '../OlaMap';
 import RideOptions from './RideOptions';
-import useRideSelectBook from '../../hooks/useRideSelectBook';
+import useRide from '../../hooks/useRide';
 
-const MobileRideSelection = () => {
+const MobileRideSelection = ({}) => {
+  const location=useLocation();
   const navigate = useNavigate();
   const { 
     formData, handleChange, handleSubmit, clearInput, loading, locationResults, handleSelectRide,
-    showDropdown, handleSelectLocation 
-  } = useRideSelectBook();
+    showDropdown, handleSelectLocation, setFormData
+  } = useRide();
   const [day, setDay] = useState("Today");
   const [dropdownType, setDropdownType] = useState(null);
   const [isExpanded, setIsExpanded] = useState(false);
+  const rideData = location.state?.rideData || {}; // Extract rideData from navigation
+  
+    useEffect(() => {
+      if (Object.keys(rideData).length > 0) {
+        setFormData((prev) => ({
+          ...prev,
+          ...rideData,
+        }));
+      }
+    }, [rideData, setFormData]);
 
   // Function to generate valid timing options
   const generateTimings = () => {
@@ -38,8 +49,9 @@ const MobileRideSelection = () => {
     <div className="relative min-h-screen bg-gray-50">
       {/* Fullscreen Map */}
       <div className="absolute inset-0 w-full h-full">
-        <OlaMap />
-      </div>
+       <OlaMap rideData={Object.keys(rideData).length > 0 ? rideData : {}} />
+     </div>
+
 
       {/* Bottom Sheet UI */}
       <div className="absolute bottom-0 left-0 right-0 pb-10 mb-16 mt-20">

@@ -3,18 +3,19 @@ import { useNavigate } from 'react-router-dom';
 import { BadgeIndianRupee,Milestone, ClockIcon, WalletCards, Wallet, MapPin, Locate, Clock10, ChevronUp, ChevronDown, Calendar1, Navigation, Cross } from 'lucide-react';
 import OlaMap from '../OlaMap';
 import RideOptions from './RideOptions';
-import useRideSelectBook from '../../hooks/useRideSelectBook';
+import useRide from '../../hooks/useRide';
 import useProfile from '../../hooks/useProfile';
 import { useSelector } from 'react-redux';
-import PaymentButton from './PaymentButton';
 import { toast } from 'react-toastify';
+import PaymentButton from './PaymentButton';
 
-const MobileRideSelection = ({rideData}) => {
+const MobileRideBook = ({rideData}) => {
   const navigate = useNavigate();
   const [paymentMethod, setPaymentMethod] = useState("Cash");
-  const { handleSubmit, loading, clearAllValues, checkAndNavigate } = useRideSelectBook();
+  const { handleSubmit, loading, clearAllValues, checkAndNavigate } = useRide();
   const profile = useSelector((state) => state.profile);
   const { fetchProfile } = useProfile();
+  
 
   useEffect(() => {
       fetchProfile(); // Fetch user data when component mounts
@@ -225,4 +226,4 @@ const MobileRideSelection = ({rideData}) => {
   );
 };
 
-export default MobileRideSelection;
+export default MobileRideBook;

@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import RideOptions from './RideOptions';
-import useRideSelectBook from '../../hooks/useRideSelectBook';
+import useRide from '../../hooks/useRide';
 import { Calendar1, MapPin, Navigation, Milestone, ClockIcon, Wallet, BadgeIndianRupee } from 'lucide-react';
 import { useSelector } from 'react-redux';
 import PaymentButton from './PaymentButton';
@@ -11,7 +11,7 @@ import { toast } from 'react-toastify';
 const RideDetails = ({ rideData }) => {
   const navigate = useNavigate();
   const [paymentMethod, setPaymentMethod] = useState("Cash");
-  const { handleSubmit, loading, clearAllValues, checkAndNavigate } = useRideSelectBook();
+  const { handleSubmit, loading, clearAllValues, checkAndNavigate } = useRide();
   const profile = useSelector((state) => state.profile);
   const { fetchProfile } = useProfile();
 
@@ -165,6 +165,7 @@ const RideDetails = ({ rideData }) => {
       <option value="Cash">Pay By Cash</option>
       <option value="Digital Payment">Digital Payment</option>
     </select>
+    <span className="absolute right-2 top-2/4 transform -translate-y-1/2 pointer-events-none text-gray-800">▼</span>
   </div>
 </div>
 

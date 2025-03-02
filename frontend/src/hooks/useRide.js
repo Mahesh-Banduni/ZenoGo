@@ -2,7 +2,7 @@ import { useState, useEffect, useCallback } from "react";
 import axiosInstance from "../utils/axiosInstance";
 import { useNavigate } from "react-router-dom";
 
-const useRideSelectRide = () => {
+const useRide = () => {
   const navigate = useNavigate();
   const token = localStorage.getItem("token");
 
@@ -72,6 +72,24 @@ const useRideSelectRide = () => {
       setLoading(false);
     }
   };
+
+  const handleHeroSection = async (e, rideData) => {
+    e.preventDefault();
+    setLoading(true);
+  
+    if (rideData) {
+      setFormData((prev) => ({
+        ...prev,
+        ...rideData,
+      }));
+    }
+  
+    setLoading(false);
+    
+    navigate("/select-ride", { state: { rideData } });
+  };
+  
+  
 
   const calculateFare = async (pickupLat, pickupLng, dropOffLat, dropOffLng, vehicleType) => {
     try {
@@ -154,7 +172,9 @@ const useRideSelectRide = () => {
     calculateFare,
     clearAllValues,
     checkAndNavigate,
+    handleHeroSection,
+    setFormData
   };
 };
 
-export default useRideSelectRide;
+export default useRide;

@@ -151,7 +151,7 @@ const Header = () => {
                 <button 
                   ref={profileButtonRef} 
                   onClick={() => setIsProfileDropdownOpen(!isProfileDropdownOpen)} 
-                  className="flex items-center gap-2 px-3 py-2 bg-gradient-to-r from-amber-100 to-amber-200 rounded-full hover:from-amber-200 hover:to-amber-300 transition-all duration-200 shadow-sm focus:outline-none focus:ring-2 focus:ring-amber-300"
+                  className="flex items-center gap-1 px-3 py-2 bg-gradient-to-r from-amber-100 to-amber-200 rounded-full hover:from-amber-200 hover:to-amber-300 transition-all duration-200 shadow-sm focus:outline-none focus:ring-2 focus:ring-amber-300"
                   aria-label="User profile"
                 >
                   <div className="bg-gradient-to-r from-orange-400 to-amber-500 p-1 rounded-full">
@@ -245,8 +245,8 @@ const Header = () => {
           </div>
           {token && (
             <div className="mt-4 py-2 px-3 bg-amber-100 rounded-lg">
-              <p className="text-sm font-medium text-gray-800">Hi, Mahesh</p>
-              <p className="text-xs text-gray-500">user@example.com</p>
+              <p className="text-sm font-medium text-gray-800">Hi, {profile.name}</p>
+              <p className="text-xs text-gray-500">{profile.email}</p>
             </div>
           )}
         </div>

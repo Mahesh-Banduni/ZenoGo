@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
-import MobileRideSelection from '../components/RideBook/MobileRideSelection';
-import RideDetails from '../components/RideBook/RideDetails';
+import MobileRideBook from '../components/rideBook/MobileRideBook';
+import RideDetails from '../components/rideBook/RideDetails';
 import OlaMap from '../components/OlaMap';
 import { useNavigate, useLocation } from "react-router-dom";
 import { ToastContainer } from 'react-toastify';
@@ -14,7 +14,7 @@ const BookRide = () => {
     if(!token){
       navigate("/login");
     }
-    
+
     // Check if screen is mobile on mount
     const checkMobile = () => {
       setIsMobile(window.innerWidth < 768);
@@ -36,7 +36,7 @@ const BookRide = () => {
   // Render mobile or desktop layout based on screen size
   return isMobile ? (
     <>
-    <MobileRideSelection rideData={rideData} />
+    <MobileRideBook rideData={rideData} />
     <ToastContainer />
     </>
   ) : (
