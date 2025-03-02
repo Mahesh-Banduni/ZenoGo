@@ -1,9 +1,10 @@
 import { useEffect, useState } from 'react';
-import MobileRideBook from '../components/rideBook/MobileRideBook';
-import RideDetails from '../components/rideBook/RideDetails';
+
 import OlaMap from '../components/OlaMap';
 import { useNavigate, useLocation } from "react-router-dom";
 import { ToastContainer } from 'react-toastify';
+import MobileRideBook from '../components/rideBook/MobileRideBook';
+import RideDetails from '../components/rideBook/RideDetails';
 
 const BookRide = () => {
   const navigate = useNavigate();

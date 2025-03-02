@@ -15,7 +15,7 @@ const MobileRideBook = ({rideData}) => {
   const { handleSubmit, loading, clearAllValues, checkAndNavigate } = useRide();
   const profile = useSelector((state) => state.profile);
   const { fetchProfile } = useProfile();
-  
+
 
   useEffect(() => {
       fetchProfile(); // Fetch user data when component mounts

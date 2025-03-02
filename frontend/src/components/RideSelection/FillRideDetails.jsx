@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import RideOptions from './RideOptions';
 import useRide from '../../hooks/useRide';
+import RideOptions from './RideOptions';
 import { MapPin, Navigation, X, Calendar, Clock, Locate } from 'lucide-react';
 
 const FillRideDetails = () => {

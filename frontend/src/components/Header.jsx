@@ -129,7 +129,7 @@ const Header = () => {
             }>
               Book a Ride
             </NavLink>
-            <NavLink to="/book-ride" className={({isActive}) => 
+            <NavLink to="/select-ride" className={({isActive}) => 
               `px-3 py-2 rounded-full text-sm lg:text-base font-medium transition-all duration-200
               ${isActive 
                 ? 'bg-gradient-to-r from-orange-500 to-amber-500 text-white shadow-sm' 
@@ -332,7 +332,7 @@ const Header = () => {
                   Book a Ride
                 </NavLink>
                 <NavLink
-                  to="/book-ride"
+                  to="/select-ride"
                   className={({ isActive }) =>
                     `flex items-center py-3 px-4 ${
                       isActive
