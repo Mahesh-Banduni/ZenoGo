@@ -33,14 +33,16 @@ ZenoGo is a ride-hailing platform built using the MERN stack. It allows users to
 ### 1️⃣ Clone the Repository  
 ```sh
 git clone https://github.com/Mahesh-Banduni/ZenoGo.git  
-cd ZenoGo  
+cd ZenoGo 
+``` 
 
 ### 2️⃣ Backend Setup
 ```sh
 cd backend  
 npm install  
 cp .env.example .env  # Update environment variables  
-npm run dev  
+npm run dev
+```  
 
 ### 3️⃣ Frontend Setup
 ```sh
@@ -48,6 +50,7 @@ cd frontend
 npm install  
 cp .env.example .env  # Update environment variables  
 npm run dev  
+```
 
 
 
