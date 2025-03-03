@@ -12,8 +12,10 @@ const swaggerSpec = require("./configs/swagger.config.js");
 require("dotenv").config();
 
 // Routes
-const mapplsRoutes = require("./routes/mappls.route.js");
 const olamapsRoutes = require("./routes/olamaps.route.js");
+const rideRoutes = require("./routes/ride.route.js");
+const userRoutes = require("./routes/user.route.js");
+const authRoutes=require("./routes/user.login.route.js");
 
 // Connect to the database
 connectDb();
@@ -74,8 +76,10 @@ server.use(express.json());
 server.use("/api/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 // Route setup
-server.use("/api/mappls", mapplsRoutes);
 server.use("/api/olamaps", olamapsRoutes);
+server.use("/api/users", userRoutes);
+server.use("/api/auth", authRoutes);
+server.use("/api/rides", rideRoutes);
 
 // Error handling middleware
 server.use(errorHandler);

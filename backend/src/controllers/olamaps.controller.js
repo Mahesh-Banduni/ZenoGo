@@ -14,7 +14,7 @@ const searchLocation = async(req, res, next)=>{
 
 const getOptimizedRoute = async(req, res, next)=>{
     try {
-        const routes= await olaMapsService.getOptimizedRoute(req.query.start, req.query.end);
+        const routes= await olaMapsService.getOptimizedRoute(req.query.pickupLat, req.query.pickupLng,req.query.dropOffLat, req.query.dropOffLng, );
         res.status(200).json({
             success: true,
             data: routes,

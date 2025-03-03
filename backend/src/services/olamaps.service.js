@@ -24,10 +24,10 @@ const searchLocation = async (input) => {
   return response.data;
 };
 
- const getOptimizedRoute = async (start, end) => {
+ const getOptimizedRoute = async (pickupLat, pickupLng, dropOffLat, dropOffLng) => {
      const token = await getOlaMapsAuthToken();
     const response = await axios.get(
-       `${ROUTE_URL}?origins=${start}&destinations=${end}`,
+       `${ROUTE_URL}?origins=${pickupLat},${pickupLng}&destinations=${dropOffLat},${dropOffLng}`,
        { headers: { Authorization: `Bearer ${token}` } }
      );
      if(response.data.status=="SUCCESS"){
@@ -40,7 +40,6 @@ const searchLocation = async (input) => {
     }));
      return routeData;
     }
-
      return response.data;
  };
 

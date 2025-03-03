@@ -2,15 +2,13 @@ import React from 'react';
 import { useState } from 'react';
 import axiosInstance from '../utils/axiosInstance';
 import { useNavigate } from 'react-router-dom'; // Added missing import
-import { TimerIcon } from 'lucide-react';
 
-const useRideSelection = () => {
+const useLogin = () => {
   const navigate = useNavigate();
   
   const [formData, setFormData] = useState({
-    pickup: '',
-    dropoff: '',
-    timing: '',
+    email: '',
+    password: ''
   });
   
   const [status, setStatus] = useState({ type: '', message: '' });
@@ -24,9 +22,21 @@ const useRideSelection = () => {
     }));
   };
 
-  // Clears input field
-  const clearInput = (field) => {
-    setFormData({ ...formData, [field]: "" });
+  const validateForm = () => {
+    const errors = [];
+    
+    // Email validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(formData.email)) {
+      errors.push('Please enter a valid email address');
+    }
+
+    // Password validation
+    if (formData.password.trim().length < 8) {
+      errors.push('Password must be at least 8 characters long');
+    }
+
+    return errors;
   };
 
   const handleSubmit = async (e) => {
@@ -34,6 +44,16 @@ const useRideSelection = () => {
     setLoading(true);
     setStatus({ type: '', message: '' });
     
+    // Validate form
+    const errors = validateForm();
+    if (errors.length > 0) {
+      setStatus({
+        type: 'error',
+        message: errors.join('. ')
+      });
+      setLoading(false);
+      return;
+    }
 
     try {
       const response = await axiosInstance.post('auth/login', formData); // Changed userData to formData
@@ -51,9 +71,8 @@ const useRideSelection = () => {
         
         // Reset form
         setFormData({
-          pickup: '',
-          dropoff: '',
-          timing: '',
+          email: '',
+          password: ''
         });
         
         navigate("/");
@@ -72,10 +91,9 @@ const useRideSelection = () => {
     formData,
     handleChange,
     handleSubmit,
-    clearInput,
     loading,
     status // Added status to return object
   };
 };
 
-export default useRideSelection;
+export default useLogin;

@@ -14,15 +14,16 @@ const Loader = () => (
 );
 
 // Lazy load components
+const Home= lazy(()=> import("./pages/Home"))
 const RideSelection = lazy(() => import("./pages/RideSelection"));
 const BookRide = lazy(() => import("./pages/BookRide"));
-//const OlaMap = lazy(() => import("./pages/OlaMap"));
+const AllRides = lazy(() => import("./pages/AllRides"));
 // const Cart = lazy(() => import("./pages/Cart"));
 // const Checkout = lazy(() => import("./pages/Checkout"));
 // const AdminDashboard= lazy(() => import('./pages/AdminDashboard'));
 // const Profile = lazy(() => import("./pages/Profile"));
-// const Login = lazy(() => import("./pages/Login"));
-// const Register = lazy(() => import("./pages/Register"));
+const Login = lazy(() => import("./pages/Login"));
+const SignUp = lazy(() => import("./pages/SignUp"));
 // const ContactUs = lazy(() => import("./pages/ContactUs"));
 // const AboutUs = lazy(() => import("./pages/AboutUs"));
 
@@ -36,7 +37,7 @@ const routes = createBrowserRouter([
         path: "/",
         element: (
           <Suspense fallback={<Loader />}>
-            <RideSelection />
+            <Home />
           </Suspense>
         ),
       },
@@ -48,22 +49,22 @@ const routes = createBrowserRouter([
           </Suspense>
         ),
       },
-      // {
-      //   path: "/olamap",
-      //   element: (
-      //     <Suspense fallback={<Loader />}>
-      //       <OlaMap />
-      //     </Suspense>
-      //   ),
-      // },
-      // {
-      //   path: "/cart",
-      //   element: (
-      //     <Suspense fallback={<Loader />}>
-      //       <Cart />
-      //     </Suspense>
-      //   ),
-      // },
+      {
+        path: "/select-ride",
+        element: (
+          <Suspense fallback={<Loader />}>
+            <RideSelection />
+          </Suspense>
+        ),
+      },
+      {
+        path: "/all-rides",
+        element: (
+          <Suspense fallback={<Loader />}>
+            <AllRides />
+          </Suspense>
+        ),
+      },
       // {
       //   path: "/checkout",
       //   element: (
@@ -80,22 +81,22 @@ const routes = createBrowserRouter([
       //     </Suspense>
       //   ),
       // },
-      // {
-      //   path: "/login",
-      //   element: (
-      //     <Suspense fallback={<Loader />}>
-      //       <Login />
-      //     </Suspense>
-      //   ),
-      // },
-      // {
-      //   path: "/register",
-      //   element: (
-      //     <Suspense fallback={<Loader />}>
-      //       <Register />
-      //     </Suspense>
-      //   ),
-      // },
+      {
+        path: "/login",
+        element: (
+          <Suspense fallback={<Loader />}>
+            <Login />
+          </Suspense>
+        ),
+      },
+      {
+        path: "/signup",
+        element: (
+          <Suspense fallback={<Loader />}>
+            <SignUp />
+          </Suspense>
+        ),
+      },
       // {
       //   path: "/contact",
       //   element: (

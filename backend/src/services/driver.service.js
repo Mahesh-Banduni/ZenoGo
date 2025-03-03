@@ -1,4 +1,4 @@
-const Driver = require("../models/Driver");
+const Driver = require("../models/driver.model");
 
 const findNearbyDrivers = async (pickupLocation) => {
   try {
