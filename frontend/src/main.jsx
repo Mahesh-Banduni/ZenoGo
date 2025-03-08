@@ -18,9 +18,9 @@ const Home= lazy(()=> import("./pages/Home"))
 const RideSelection = lazy(() => import("./pages/RideSelection"));
 const BookRide = lazy(() => import("./pages/BookRide"));
 const AllRides = lazy(() => import("./pages/AllRides"));
-// const Cart = lazy(() => import("./pages/Cart"));
-// const Checkout = lazy(() => import("./pages/Checkout"));
-// const AdminDashboard= lazy(() => import('./pages/AdminDashboard'));
+const ProfileSettings= lazy(()=> import("./pages/ProfileSettings"))
+const ActiveRides = lazy(() => import("./pages/ActiveRides"));
+const RidesHistory= lazy(() => import('./pages/RidesHistory'));
 // const Profile = lazy(() => import("./pages/Profile"));
 const Login = lazy(() => import("./pages/Login"));
 const SignUp = lazy(() => import("./pages/SignUp"));
@@ -65,22 +65,22 @@ const routes = createBrowserRouter([
           </Suspense>
         ),
       },
-      // {
-      //   path: "/checkout",
-      //   element: (
-      //     <Suspense fallback={<Loader />}>
-      //       <Checkout />
-      //     </Suspense>
-      //   ),
-      // },
-      // {
-      //   path: "/profile",
-      //   element: (
-      //     <Suspense fallback={<Loader />}>
-      //       <Profile />
-      //     </Suspense>
-      //   ),
-      // },
+      {
+        path: "/profile-settings",
+        element: (
+          <Suspense fallback={<Loader />}>
+            <ProfileSettings />
+          </Suspense>
+        ),
+      },
+      {
+        path: "/active-rides",
+        element: (
+          <Suspense fallback={<Loader />}>
+            <ActiveRides />
+          </Suspense>
+        ),
+      },
       {
         path: "/login",
         element: (
@@ -97,14 +97,14 @@ const routes = createBrowserRouter([
           </Suspense>
         ),
       },
-      // {
-      //   path: "/contact",
-      //   element: (
-      //     <Suspense fallback={<Loader />}>
-      //       <ContactUs />
-      //     </Suspense>
-      //   ),
-      // },
+      {
+        path: "/rides-history",
+        element: (
+          <Suspense fallback={<Loader />}>
+            <RidesHistory />
+          </Suspense>
+        ),
+      },
       // {
       //   path: "/admin-dashboard",
       //   element: (

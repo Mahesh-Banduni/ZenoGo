@@ -12,7 +12,7 @@ const rideSchema = new mongoose.Schema({
   dropOffAddress: { type: String},
   dropOffLat: {type: String},
   dropOffLng: {type: String},
-  status: {
+  rideStatus: {
     type: String,
     enum: ["requested", "accepted", "on_ride", "completed", "cancelled"],
     default: "requested",
@@ -29,6 +29,7 @@ const rideSchema = new mongoose.Schema({
   duration:{
     type: String
   },
+  rideTiming: {type: Date},
   fare: { type: Number },
   rating: { type: mongoose.Schema.Types.ObjectId, ref: "Rating"},
   paymentId: { type: String },
