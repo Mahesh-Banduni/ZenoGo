@@ -17,7 +17,6 @@ const Loader = () => (
 const Home= lazy(()=> import("./pages/Home"))
 const RideSelection = lazy(() => import("./pages/RideSelection"));
 const BookRide = lazy(() => import("./pages/BookRide"));
-const AllRides = lazy(() => import("./pages/AllRides"));
 const ProfileSettings= lazy(()=> import("./pages/ProfileSettings"))
 const ActiveRides = lazy(() => import("./pages/ActiveRides"));
 const RidesHistory= lazy(() => import('./pages/RidesHistory'));
@@ -54,14 +53,6 @@ const routes = createBrowserRouter([
         element: (
           <Suspense fallback={<Loader />}>
             <RideSelection />
-          </Suspense>
-        ),
-      },
-      {
-        path: "/all-rides",
-        element: (
-          <Suspense fallback={<Loader />}>
-            <AllRides />
           </Suspense>
         ),
       },

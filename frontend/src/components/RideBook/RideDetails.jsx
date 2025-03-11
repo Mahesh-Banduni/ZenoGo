@@ -39,7 +39,7 @@ const RideDetails = ({ rideData }) => {
       });
       clearAllValues();
       setTimeout(() => {
-        navigate("/all-rides");
+        navigate("/active-rides");
       }, 1500);
     };
 

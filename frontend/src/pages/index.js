@@ -3,9 +3,10 @@ import BookRide from "./BookRide";
 import RideSelection from "./RideSelection";
 import Login from "./Login";
 import SignUp from "./SignUp";
-import AllRides from "./AllRides";
+import ActiveRides from "./ActiveRides";
+import RidesHistory from "./RidesHistory";
 import ProfileSettings from "./ProfileSettings";
 
 export{
-    Home, BookRide, RideSelection, Login, SignUp, AllRides, ProfileSettings
+    Home, BookRide, RideSelection, Login, SignUp, RidesHistory, ProfileSettings, ActiveRides
 };

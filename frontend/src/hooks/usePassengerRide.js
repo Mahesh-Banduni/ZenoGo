@@ -13,6 +13,7 @@ export const usePassengerRide = () => {
         const response = await axiosInstance.get(`/rides/user`, {
           headers: { Authorization: `Bearer ${token}` }
         });
+        console.log(response.data);
         dispatch(setRideDetails(response.data));
         dispatch(setLoading(false));
       } catch (error) {

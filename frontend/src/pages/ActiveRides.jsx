@@ -112,6 +112,7 @@ const RideCard = ({ ride }) => {
 const ActiveRides = () => {
   const dispatch = useDispatch();
   const { rides, loading, error } = useSelector(state => state.ride);
+  console.log(rides);
   const { fetchRides } = usePassengerRide();
 
   useEffect(() => {
@@ -148,15 +149,16 @@ const ActiveRides = () => {
     <div className="max-w-4xl mx-auto p-4 space-y-4">
   <h2 className="text-xl font-semibold text-gray-900 mb-6">Active Rides</h2>
   {rides
-    .filter(
-      (ride) =>
-        ride.rideTiming > Date.now() &&
-        ride.rideStatus !== "completed" &&
-        ride.rideStatus !== "cancelled"
-    )
-    .map((ride) => (
-      <RideCard key={ride.rideId} ride={ride} />
-    ))}
+  .filter(
+    (ride) =>
+      new Date(ride.rideTiming).getTime() > Date.now() &&
+      ride.rideStatus !== "completed" &&
+      ride.rideStatus !== "cancelled"
+  )
+  .map((ride) => (
+    <RideCard key={ride.rideId} ride={ride} />
+  ))}
+
 </div>
   );
 };
