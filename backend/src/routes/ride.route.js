@@ -109,6 +109,10 @@ router.post("/calculate-fare", rideController.calculateFare);
  *                 type: string
  *               duration:
  *                 type: string
+ *               day:
+ *                 type: string
+ *               timing:
+ *                 type: string
  *               fare:
  *                 type: string
  *               vehicleType:

@@ -3,7 +3,7 @@ const rideService =require("../services/ride.service");
 const calculateFare = async(req, res, next)=>{
     try {
         const {totalFare, distanceInKm, durationInHrMin, polyline}= await rideService.calculateFare(req.body);
-        console.log({totalFare, distanceInKm, durationInHrMin, polyline});
+        //console.log({totalFare, distanceInKm, durationInHrMin, polyline});
         res.status(200).json({
             success: true,
             data: {totalFare, distanceInKm, durationInHrMin, polyline},

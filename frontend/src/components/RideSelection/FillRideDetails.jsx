@@ -31,7 +31,7 @@ const FillRideDetails = () => {
       const hour = i % 12 === 0 ? 12 : i % 12;
       const period = i < 12 ? "AM" : "PM";
       return (
-        <option key={i} value={`${hour} ${period}`} className="bg-white text-gray-700">
+        <option key={i} value={`${hour}:00 ${period}`} className="bg-white text-gray-700">
           {hour}:00 {period}
         </option>
       );

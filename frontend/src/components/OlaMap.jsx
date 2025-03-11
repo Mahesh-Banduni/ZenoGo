@@ -127,7 +127,7 @@ const OlaMap = ({ rideData }) => {
         }
     }, [rideData]);
 
-    return <div id="map" className="w-full h-screen" />;
+    return <div id="map" className="lg:w-3/4 md:w-2/4 h-screen" />;
 };
 
 export default OlaMap;

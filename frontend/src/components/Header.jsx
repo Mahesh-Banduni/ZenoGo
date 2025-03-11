@@ -174,25 +174,25 @@ const Header = () => {
                         <p className="text-xs text-gray-500 truncate">{profile.email}</p>
                       </div>
                       <NavLink 
-                        to="/profile" 
+                        to="/profile-settings" 
                         className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-amber-50 transition-colors duration-200"
                         onClick={() => setIsProfileDropdownOpen(false)}
                       >
                         Manage Account
                       </NavLink>
                       <NavLink 
-                        to="/profile" 
+                        to="/active-rides" 
                         className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-amber-50 transition-colors duration-200"
                         onClick={() => setIsProfileDropdownOpen(false)}
                       >
-                        Upcoming Rides
+                        Your Active Rides
                       </NavLink>
                       <NavLink 
-                        to="/profile" 
+                        to="/rides-history" 
                         className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-amber-50 transition-colors duration-200"
                         onClick={() => setIsProfileDropdownOpen(false)}
                       >
-                        Completed Rides
+                        Rides History
                       </NavLink>
                       <button 
                         onClick={handleLogout} 
@@ -268,7 +268,7 @@ const Header = () => {
                   {/* Profile Navigation Links */}
                   <div className="bg-amber-50">
                     <NavLink
-                      to="/profile"
+                      to="/profile-settings"
                       className={({ isActive }) =>
                         `block py-3 px-4 border-b border-amber-100 text-sm ${
                           isActive
@@ -281,7 +281,7 @@ const Header = () => {
                       Manage Account
                     </NavLink>
                     <NavLink
-                      to="/upcoming-rides"
+                      to="/active-rides"
                       className={({ isActive }) =>
                         `block py-3 px-4 border-b border-amber-100 text-sm ${
                           isActive
@@ -291,10 +291,10 @@ const Header = () => {
                       }
                       onClick={handleNavLinkClick}
                     >
-                      Upcoming Rides
+                      Your Active Rides
                     </NavLink>
                     <NavLink
-                      to="/completed-rides"
+                      to="/rides-history"
                       className={({ isActive }) =>
                         `block py-3 px-4 text-sm ${
                           isActive
@@ -304,7 +304,7 @@ const Header = () => {
                       }
                       onClick={handleNavLinkClick}
                     >
-                      Completed Rides
+                      Rides History
                     </NavLink>
                   </div>
                 </div>

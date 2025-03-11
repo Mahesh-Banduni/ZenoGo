@@ -11,7 +11,7 @@ const getOlaMapsAuthToken = async () => {
       `grant_type=client_credentials&client_id=${OLAMAPS_CLIENT_ID}&client_secret=${OLAMAPS_CLIENT_SECRET}`,
       { headers: { "Content-Type": "application/x-www-form-urlencoded" } }
     );
-    console.log(response.data.access_token);
+    //console.log(response.data.access_token);
     return response.data.access_token;
   } catch (error) {
     console.error("Error fetching Mappls token:", error);
