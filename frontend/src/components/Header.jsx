@@ -129,14 +129,24 @@ const Header = () => {
             }>
               Book a Ride
             </NavLink>
-            <NavLink to="/select-ride" className={({isActive}) => 
+            {/* <NavLink to="/select-ride" className={({isActive}) => 
               `px-3 py-2 rounded-full text-sm lg:text-base font-medium transition-all duration-200
               ${isActive 
                 ? 'bg-gradient-to-r from-orange-500 to-amber-500 text-white shadow-sm' 
                 : 'text-gray-700 hover:bg-amber-200 hover:text-gray-900'}`
             }>
               Reserve a Ride
+            </NavLink> */}
+            {!token ? (
+            <NavLink to="/join-ride-partner" className={({isActive}) => 
+              `px-3 py-2 rounded-full text-sm lg:text-base font-medium transition-all duration-200
+              ${isActive 
+                ? 'bg-gradient-to-r from-orange-500 to-amber-500 text-white shadow-sm' 
+                : 'text-gray-700 hover:bg-amber-200 hover:text-gray-900'}`
+            }>
+              Join as Ride Partner
             </NavLink>
+          ):(<></>)}
           </div>
           
           {/* Auth Actions */}
@@ -180,6 +190,14 @@ const Header = () => {
                       >
                         Manage Account
                       </NavLink>
+                      {role=="driver"? <NavLink
+                      to="/accept-rides"
+                      className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-amber-50 transition-colors duration-200"
+                        onClick={() => setIsProfileDropdownOpen(false)}
+                      >
+                      Accept Rides
+                      </NavLink>
+                      :(<></>)}
                       <NavLink 
                         to="/active-rides" 
                         className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-amber-50 transition-colors duration-200"
@@ -194,6 +212,14 @@ const Header = () => {
                       >
                         Rides History
                       </NavLink>
+                      {role=="driver"? <NavLink
+                      to="/wallet-earnings"
+                      className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-amber-50 transition-colors duration-200"
+                        onClick={() => setIsProfileDropdownOpen(false)}
+                      >
+                      Your Wallet
+                      </NavLink>
+                      :(<></>)}
                       <button 
                         onClick={handleLogout} 
                         className="flex items-center w-full px-4 py-2 text-left text-sm text-red-600 hover:bg-red-50 transition-colors duration-200"
@@ -280,6 +306,20 @@ const Header = () => {
                     >
                       Manage Account
                     </NavLink>
+                    {role=="driver"? <NavLink
+                      to="/accept-rides"
+                      className={({ isActive }) =>
+                        `block py-3 px-4 text-sm ${
+                          isActive
+                            ? "text-orange-600 font-semibold bg-amber-100"
+                            : "text-gray-700 hover:bg-amber-100"
+                        } transition-colors duration-200`
+                      }
+                      onClick={handleNavLinkClick}
+                    >
+                      Accept Rides
+                    </NavLink>
+                    :(<></>)}
                     <NavLink
                       to="/active-rides"
                       className={({ isActive }) =>
@@ -306,6 +346,20 @@ const Header = () => {
                     >
                       Rides History
                     </NavLink>
+                    {role=="driver"? <NavLink
+                      to="/wallet-earnings"
+                      className={({ isActive }) =>
+                        `block py-3 px-4 text-sm ${
+                          isActive
+                            ? "text-orange-600 font-semibold bg-amber-100"
+                            : "text-gray-700 hover:bg-amber-100"
+                        } transition-colors duration-200`
+                      }
+                      onClick={handleNavLinkClick}
+                    >
+                      Your Wallet
+                    </NavLink>
+                    :(<></>)}
                   </div>
                 </div>
               </>
@@ -331,7 +385,7 @@ const Header = () => {
                   </svg>
                   Book a Ride
                 </NavLink>
-                <NavLink
+                {/* <NavLink
                   to="/select-ride"
                   className={({ isActive }) =>
                     `flex items-center py-3 px-4 ${
@@ -346,7 +400,25 @@ const Header = () => {
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                   </svg>
                   Reserve a Ride
+                </NavLink> */}
+                {!token ? (
+                <NavLink
+                  to="/join-ride-partner"
+                  className={({ isActive }) =>
+                    `flex items-center py-3 px-4 ${
+                      isActive
+                        ? "bg-gradient-to-r from-orange-500 to-amber-500 text-white font-semibold"
+                        : "text-gray-700 hover:bg-gray-100"
+                    } transition-colors duration-200 border-b border-gray-200`
+                  }
+                  onClick={handleNavLinkClick}
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                  </svg>
+                  Join as Ride Partner
                 </NavLink>
+                ):(<></>)}
               </div>
             </div>
           </div>

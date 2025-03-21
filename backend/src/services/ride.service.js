@@ -45,30 +45,37 @@ const createRide = async (userId, rideDetails) => {
 
   // Generate ride code
   const rideCodePrefix = "ZNG";
+  let currentDate;
   let rideCode, rideCodeCheck;
-
+  
   do {
       const generatedCode = await generateRideCode();
       rideCode = rideCodePrefix + generatedCode;
       rideCodeCheck = await Ride.exists({ rideCode });
   } while (rideCodeCheck);
 
-  // Convert ride timing to Date format
-  const currentDate = new Date();
+  if (rideDetails.day === "Tomorrow" || rideDetails.day === "Today") {
+  // Get current date and adjust for "Tomorrow"
+  currentDate = new Date();
   if (rideDetails.day === "Tomorrow") {
-      currentDate.setDate(currentDate.getDate() + 1);
+    currentDate.setDate(currentDate.getDate() + 1);
+  }
+  } else {
+  // Convert "YYYY-MM-DD" string to Date object
+  currentDate = new Date(rideDetails.day);
   }
 
-  const [hours, minutes, period] = rideDetails.timing.split(/[: ]/); // Extract time components
+  // Extract and convert ride timing
+  const [hours, minutes, period] = rideDetails.timing.split(/[: ]/);
   let hours24 = parseInt(hours, 10);
   
   if (period.toLowerCase() === "pm" && hours24 !== 12) {
-      hours24 += 12; // Convert PM to 24-hour format
+  hours24 += 12; // Convert PM to 24-hour format
   } else if (period.toLowerCase() === "am" && hours24 === 12) {
-      hours24 = 0; // Convert 12 AM to 00 hours
+  hours24 = 0; // Convert 12 AM to 00 hours
   }
-
-  currentDate.setHours(hours24, parseInt(minutes, 10), 0, 0); // Set time
+  
+  currentDate.setHours(hours24, parseInt(minutes, 10), 0, 0);
 
   const ride = new Ride({
       passengerId: userId,

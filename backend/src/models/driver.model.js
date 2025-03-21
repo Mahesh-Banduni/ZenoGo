@@ -2,8 +2,10 @@ const mongoose = require("mongoose");
 
 const driverSchema = new mongoose.Schema({
   driverId: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
-  carModel: { type: String, required: true },
-  carNumber: { type: String, required: true, unique: true },
+  vehicleType:{
+    type:String
+  },
+  vehicleNumber: { type: String, required: true, unique: true },
   licenseNumber: { type: String, required: true, unique: true },
   isAvailable: { type: Boolean, default: true },
   rating: { type: Number, default: 5 },

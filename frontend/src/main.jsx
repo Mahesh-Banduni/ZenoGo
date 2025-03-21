@@ -20,7 +20,7 @@ const BookRide = lazy(() => import("./pages/BookRide"));
 const ProfileSettings= lazy(()=> import("./pages/ProfileSettings"))
 const ActiveRides = lazy(() => import("./pages/ActiveRides"));
 const RidesHistory= lazy(() => import('./pages/RidesHistory'));
-// const Profile = lazy(() => import("./pages/Profile"));
+const JoinRidePartner = lazy(() => import("./pages/JoinRidePartner"));
 const Login = lazy(() => import("./pages/Login"));
 const SignUp = lazy(() => import("./pages/SignUp"));
 // const ContactUs = lazy(() => import("./pages/ContactUs"));
@@ -96,14 +96,14 @@ const routes = createBrowserRouter([
           </Suspense>
         ),
       },
-      // {
-      //   path: "/admin-dashboard",
-      //   element: (
-      //     <Suspense fallback={<Loader />}>
-      //       <AdminDashboard />
-      //     </Suspense>
-      //   ),
-      // },
+      {
+        path: "/join-ride-partner",
+        element: (
+          <Suspense fallback={<Loader />}>
+            <JoinRidePartner />
+          </Suspense>
+        ),
+      },
       // {
       //   path: "/about",
       //   element: (

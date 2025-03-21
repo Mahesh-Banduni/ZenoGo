@@ -1,21 +1,19 @@
-import React from 'react';
-import { useState } from 'react';
+import React, { useState } from 'react';
 import axiosInstance from '../utils/axiosInstance';
-import { useNavigate } from 'react-router-dom'; // Added missing import
+import { useNavigate } from 'react-router-dom';
 
-const useRegister = () => {
+const useSignUp = () => {
   const navigate = useNavigate();
   
   const [formData, setFormData] = useState({
     name: '',
     email: '',
     password: '',
-    role: 'passenger'
+    role: ''
   });
-  
+
   const [status, setStatus] = useState({ type: '', message: '' });
   const [loading, setLoading] = useState(false);
-  const [role, setRole]= useState("passenger");
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -35,7 +33,7 @@ const useRegister = () => {
     }
 
     // Name validation
-    if (formData.name.trim().length < 6) {  // Changed from fullName to name
+    if (formData.name.trim().length < 6) {
       errors.push('Name must be at least 6 characters long');
     }
 
@@ -51,7 +49,10 @@ const useRegister = () => {
     e.preventDefault();
     setLoading(true);
     setStatus({ type: '', message: '' });
-    
+
+    // Assign role before submission
+    const updatedFormData = { ...formData, role: "passenger" };
+
     // Validate form
     const errors = validateForm();
     if (errors.length > 0) {
@@ -64,10 +65,10 @@ const useRegister = () => {
     }
 
     try {
-      console.log(formData);
-      const response = await axiosInstance.post('users/signup', formData); // Changed userData to formData
+      console.log(updatedFormData);
+      const response = await axiosInstance.post('users/signup', updatedFormData);
       
-      if (response?.data?.success === true) {
+      if (response?.data?.success) {
         localStorage.setItem(
           "token",
           JSON.stringify(response?.data?.data?.response)
@@ -75,21 +76,76 @@ const useRegister = () => {
         
         setStatus({
           type: 'success',
-          message: response.data.message || 'Signed-up successful!'
+          message: response.data.message || 'Signed-up successfully!'
         });
-        
+
         // Reset form
         setFormData({
           name: '',
           email: '',
-          password: ''
+          password: '',
+          role: ''
         });
-        
+
         navigate("/");
-      } 
+      }
     } catch (error) {
       setStatus({
-        type: 'error', // Changed from success to error
+        type: 'error',
+        message: error?.response?.data?.message || 'Sign-up failed. Please try again.'
+      });
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleSubmitRidePartner = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    setStatus({ type: '', message: '' });
+
+    // Assign role before submission
+    const updatedFormData = { ...formData, role: "driver" };
+
+    // Validate form
+    const errors = validateForm();
+    if (errors.length > 0) {
+      setStatus({
+        type: 'error',
+        message: errors.join('. ')
+      });
+      setLoading(false);
+      return;
+    }
+
+    try {
+      console.log(updatedFormData);
+      const response = await axiosInstance.post('users/signup', updatedFormData);
+      
+      if (response?.data?.success) {
+        localStorage.setItem(
+          "token",
+          JSON.stringify(response?.data?.data?.response)
+        );
+
+        setStatus({
+          type: 'success',
+          message: response.data.message || 'Signed-up successfully!'
+        });
+
+        // Reset form
+        setFormData({
+          name: '',
+          email: '',
+          password: '',
+          role: ''
+        });
+
+        navigate("/");
+      }
+    } catch (error) {
+      setStatus({
+        type: 'error',
         message: error?.response?.data?.message || 'Sign-up failed. Please try again.'
       });
     } finally {
@@ -101,9 +157,10 @@ const useRegister = () => {
     formData,
     handleChange,
     handleSubmit,
+    handleSubmitRidePartner,
     loading,
-    status // Added status to return object
+    status
   };
 };
 
-export default useRegister;
+export default useSignUp;

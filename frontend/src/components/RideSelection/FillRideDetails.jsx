@@ -24,6 +24,27 @@ const FillRideDetails = () => {
     }
   }, [rideData, setFormData]);
 
+  const [dates, setDates] = useState([]);
+
+  // Function to generate the next 7 days starting from 2 days later
+  const generateDates = () => {
+    const currentDate = new Date();
+    const nextDates = [];
+
+    for (let i = 2; i < 9; i++) {
+      let futureDate = new Date();
+      futureDate.setDate(currentDate.getDate() + i);
+      let formattedDate = futureDate.toISOString().split("T")[0]; // YYYY-MM-DD format
+      nextDates.push(formattedDate);
+    }
+
+    setDates(nextDates);
+  };
+
+  useState(() => {
+    generateDates();
+  }, []);
+
   const generateTimings = () => {
     const currentHour = new Date().getHours();
     return Array.from({ length: 24 }, (_, i) => {
@@ -115,6 +136,11 @@ const FillRideDetails = () => {
             >
               <option value="Today">Today</option>
               <option value="Tomorrow">Tomorrow</option>
+              {dates.map((date) => (
+              <option key={date} value={date}>
+              {date}
+              </option>
+              ))}
             </select>
           </div>
           <div className="relative">
