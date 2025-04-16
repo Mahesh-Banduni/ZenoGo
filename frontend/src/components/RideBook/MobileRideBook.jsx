@@ -41,7 +41,7 @@ const MobileRideBook = ({rideData}) => {
       });
       clearAllValues();
       setTimeout(() => {
-        navigate("/all-rides");
+        navigate("/active-rides");
       }, 1500);
     };
 
@@ -65,7 +65,7 @@ const MobileRideBook = ({rideData}) => {
     handleRideSuccess();
     clearAllValues();
     setTimeout(() => {
-      navigate("/all-rides", {
+      navigate("/active-rides", {
         state: {
           orderDetails: response,
           paymentId: response.razorpay_payment_id,

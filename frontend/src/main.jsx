@@ -18,8 +18,9 @@ const Home= lazy(()=> import("./pages/Home"))
 const RideSelection = lazy(() => import("./pages/RideSelection"));
 const BookRide = lazy(() => import("./pages/BookRide"));
 const ProfileSettings= lazy(()=> import("./pages/ProfileSettings"))
-const ActiveRides = lazy(() => import("./pages/ActiveRides"));
+const UpcomingRides = lazy(() => import("./pages/UpcomingRides"));
 const RidesHistory= lazy(() => import('./pages/RidesHistory'));
+const ActiveRides = lazy(() => import("./pages/ActiveRides"));
 const JoinRidePartner = lazy(() => import("./pages/JoinRidePartner"));
 const Login = lazy(() => import("./pages/Login"));
 const SignUp = lazy(() => import("./pages/SignUp"));
@@ -61,6 +62,14 @@ const routes = createBrowserRouter([
         element: (
           <Suspense fallback={<Loader />}>
             <ProfileSettings />
+          </Suspense>
+        ),
+      },
+      {
+        path: "/upcoming-rides",
+        element: (
+          <Suspense fallback={<Loader />}>
+            <UpcomingRides />
           </Suspense>
         ),
       },

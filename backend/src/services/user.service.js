@@ -29,7 +29,7 @@ const createUser = async (userData) => {
   user.email = email;
   user.role = userData.role;
   user.password = password;
-  //user.phone= userData.phone;
+  user.phone= '';
   user.isVerified = false;
 
   await user.save();

@@ -7,14 +7,14 @@ import usePassengerRide from '../hooks/usePassengerRide';
 const RideStatusBadge = ({ status }) => {
   const getStatusStyles = () => {
     switch (status) {
-      case 'Confirmed':
-        return 'bg-blue-500 text-white';
-      case 'Ongoing':
-        return 'bg-orange-500 text-white';
-      case 'Completed':
-        return 'bg-green-500 text-white font-bold';
-      case 'Cancelled':
-        return 'bg-red-600 text-white';
+        case 'Confirmed':
+          return 'bg-blue-500 text-white';
+        case 'Ongoing':
+          return 'bg-orange-500 text-white';
+        case 'Completed':
+          return 'bg-green-500 text-white font-bold';
+        case 'Cancelled':
+          return 'bg-red-600 text-white';
         case 'Requested':
           return 'bg-amber-600 text-white';
     }
@@ -109,7 +109,7 @@ const RideCard = ({ ride }) => {
   );
 };
 
-const RidesHistory = () => {
+const UpcomingRides = () => {
   const dispatch = useDispatch();
   const { rides, loading, error } = useSelector((state) => state.ride);
   const { fetchRides } = usePassengerRide();
@@ -123,11 +123,11 @@ const RidesHistory = () => {
     if (rides?.length > 0) {
       const filtered = rides.filter(
         (ride) =>
-          new Date(ride.rideTiming).getTime() < Date.now() &&
-          (ride.rideStatus === "Completed" || ride.rideStatus === "Cancelled")
+          new Date(ride.rideTiming).getTime() > Date.now() &&
+          ride.rideStatus !== "Completed" &&
+          ride.rideStatus !== "Cancelled"
       );
       setFilteredRides(filtered);
-      console.log(filtered);
     }
   }, [rides]);
 
@@ -147,19 +147,19 @@ const RidesHistory = () => {
     );
   }
 
-  if (filteredRides.length === 0) {
+  if (!filteredRides.length) {
     return (
       <div className="text-center py-8">
         <Car className="w-12 h-12 text-gray-400 mx-auto mb-4" />
-        <h3 className="text-lg font-medium text-gray-900 mb-2">No rides</h3>
-        <p className="text-sm text-gray-600">Your rides will appear here</p>
+        <h3 className="text-lg font-medium text-gray-900 mb-2">No upcoming rides</h3>
+        <p className="text-sm text-gray-600">Your Upcoming rides will appear here</p>
       </div>
     );
   }
 
   return (
     <div className="max-w-4xl mx-auto p-4 space-y-4">
-      <h2 className="text-xl font-semibold text-gray-900 mb-6">All Rides</h2>
+      <h2 className="text-xl font-semibold text-gray-900 mb-6">Upcoming Rides</h2>
       {filteredRides.map((ride) => (
         <RideCard key={ride.rideId} ride={ride} />
       ))}
@@ -167,4 +167,4 @@ const RidesHistory = () => {
   );
 };
 
-export default RidesHistory;
+export default UpcomingRides;

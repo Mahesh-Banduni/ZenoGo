@@ -14,8 +14,8 @@ const rideSchema = new mongoose.Schema({
   dropOffLng: {type: String},
   rideStatus: {
     type: String,
-    enum: ["requested", "accepted", "on_ride", "completed", "cancelled"],
-    default: "requested",
+    enum: ["Requested", "Confirmed", "Ongoing", "Completed", "Cancelled"],
+    default: "Requested",
   },
   vehicleType:{
     type:String

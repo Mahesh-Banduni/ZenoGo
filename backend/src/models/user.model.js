@@ -7,7 +7,7 @@ const userSchema = new mongoose.Schema({
   phone: { type: String, unique: true },
   role: { type: String, enum: ["passenger", "driver", "admin"], default: "passenger", required: true },
   profilePicture: { type: String }, // URL of profile picture
-  isVerified: { type: Boolean, default: false }, // Email/Phone verification
+  isVerified: { type: Boolean, default: true }, // Email/Phone verification
   rides: [{ type: mongoose.Schema.Types.ObjectId, ref: "Ride" }],
   createdAt: { type: Date, default: Date.now },
 });

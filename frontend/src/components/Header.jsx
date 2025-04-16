@@ -198,12 +198,19 @@ const Header = () => {
                       Accept Rides
                       </NavLink>
                       :(<></>)}
+                    <NavLink
+                      to="/upcoming-rides" 
+                      className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-amber-50 transition-colors duration-200"
+                      onClick={() => setIsProfileDropdownOpen(false)}
+                    >
+                      Upcoming Rides
+                      </NavLink>
                       <NavLink 
                         to="/active-rides" 
                         className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-amber-50 transition-colors duration-200"
                         onClick={() => setIsProfileDropdownOpen(false)}
                       >
-                        Your Active Rides
+                        Active Rides
                       </NavLink>
                       <NavLink 
                         to="/rides-history" 
@@ -321,6 +328,20 @@ const Header = () => {
                     </NavLink>
                     :(<></>)}
                     <NavLink
+                      to="/upcoming-rides"
+                      className={({ isActive }) =>
+                        `block py-3 px-4 border-b border-amber-100 text-sm ${
+                          isActive
+                            ? "text-orange-600 font-semibold bg-amber-100"
+                            : "text-gray-700 hover:bg-amber-100"
+                        } transition-colors duration-200`
+                      }
+                      onClick={handleNavLinkClick}
+                    >
+                      Upcoming Rides
+                    </NavLink>
+                
+                    <NavLink
                       to="/active-rides"
                       className={({ isActive }) =>
                         `block py-3 px-4 border-b border-amber-100 text-sm ${
@@ -331,7 +352,7 @@ const Header = () => {
                       }
                       onClick={handleNavLinkClick}
                     >
-                      Your Active Rides
+                      Active Rides
                     </NavLink>
                     <NavLink
                       to="/rides-history"
